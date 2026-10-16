@@ -23,6 +23,7 @@
 
 /* ---------- 0. TOKENS ---------- */
 :root{
+  color-scheme:light;   /* site é só claro: impede o modo escuro do celular de escurecer/acinzentar as cores */
   --paper:#f3eee4;
   --ink:#121212;
   --orange:#ff4b1f;
