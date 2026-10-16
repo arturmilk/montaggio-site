@@ -1,0 +1,569 @@
+/* =========================================================
+   MONTAGGIO · style.css
+   Índice:
+   0. Tokens (cores, fontes, curvas)   → :root logo abaixo
+   1. Base e acessibilidade
+   2. Nav
+   3. Botões
+   4. Reveals e texto por palavra
+   5. Hero
+   6. Marquee
+   7. O problema (SPIN)
+   8. Mecânica (1 compra = 1 vida)
+   9. O que é advergame
+   10. Partida de 60 s (sticky)
+   11. Por que funciona (cards empilhados)
+   12. Linha do tempo
+   13. Processo + regras de design
+   15. Compromisso responsável
+   16. CTA final + rodapé
+   16b. Perguntas frequentes (página própria)
+   17. Movimento reduzido
+   ========================================================= */
+
+/* ---------- 0. TOKENS ---------- */
+:root{
+  --paper:#f3eee4;
+  --ink:#121212;
+  --orange:#ff4b1f;
+  --cobalt:#2a3cff;
+  --lime:#d4ff3a;
+  --pink:#ffb7d5;
+  --peach:#ffd9a8;              /* tom suave de apoio (conectores, fundo da partida) */
+  --muted:#4a463f;              /* texto secundário sobre papel (AA) */
+
+  --ease-out:cubic-bezier(0.23,1,0.32,1);
+  --ease-in-out:cubic-bezier(0.77,0,0.175,1);
+
+  --font:"Bricolage Grotesque",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"DM Mono",ui-monospace,Consolas,monospace;
+
+  --gutter:clamp(16px,4vw,24px);
+}
+
+/* ---------- 1. BASE E ACESSIBILIDADE ---------- */
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;overflow-x:clip}
+body{font-family:var(--font);background:var(--paper);color:var(--ink);overflow-x:clip;line-height:1.4;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
+a{color:inherit;text-decoration:none}
+ol,ul{list-style:none}
+img,svg{display:block}
+.wrap{width:min(1240px,100% - var(--gutter)*2);margin-inline:auto}
+.mono{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+section[id]{scroll-margin-top:64px}
+
+:focus-visible{outline:3px solid currentColor;outline-offset:4px;border-radius:6px}
+
+.skip{position:fixed;left:16px;top:-80px;z-index:100;background:var(--ink);color:var(--paper);padding:14px 18px;border-radius:12px;font-weight:700;transition:transform 200ms var(--ease-out)}
+.skip:focus{transform:translateY(96px)}
+
+/* placeholders pendentes: ficam visíveis de propósito */
+.todo{font-family:var(--mono);font-size:.85em;background:var(--lime);color:var(--ink);padding:.1em .4em;border-radius:6px;white-space:nowrap}
+
+.kicker{margin-bottom:18px;color:var(--muted)}
+.h-xl{font-size:clamp(40px,8vw,120px);font-weight:800;letter-spacing:-.06em;line-height:.92;max-width:14ch}
+.h-lg{font-size:clamp(34px,5.4vw,76px);font-weight:800;letter-spacing:-.055em;line-height:.95;max-width:18ch}
+.h-xl em,.h-lg em{font-style:normal;color:var(--orange)}
+
+/* ---------- 2. NAV ---------- */
+/* mix-blend-mode: difference faz o menu inverter sobre qualquer fundo */
+.nav{position:fixed;top:0;left:0;right:0;z-index:60;padding:10px 0;mix-blend-mode:difference;color:#fff;pointer-events:none}
+.nav .wrap{display:flex;justify-content:space-between;align-items:center;gap:16px}
+.nav a{pointer-events:auto;min-height:44px;display:inline-flex;align-items:center}
+.logo{font-weight:800;font-size:24px;letter-spacing:-.05em}
+.nav .links{display:flex;gap:26px}
+.nav .links a{position:relative}
+.nav .links a::after{content:"";position:absolute;left:0;right:0;bottom:10px;height:1px;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform 250ms var(--ease-out)}
+@media (hover:hover) and (pointer:fine){.nav .links a:hover::after{transform:scaleX(1)}}
+.nav-cta{padding:0 16px;border:1.5px solid currentColor;border-radius:99px;transition:transform 160ms var(--ease-out)}
+.nav-cta:active{transform:scale(.97)}
+.nav .wrap>.links{margin-left:auto;margin-right:10px}
+@media (max-width:760px){.nav .links{display:none}}
+
+/* ---------- 3. BOTÕES ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:56px;background:var(--ink);color:var(--paper);border:2px solid var(--ink);border-radius:99px;padding:14px 26px;font-weight:700;font-size:clamp(16px,1.4vw,18px);letter-spacing:-.02em;transition:transform 160ms var(--ease-out),background-color 200ms ease,color 200ms ease,border-color 200ms ease;user-select:none}
+.btn:active{transform:scale(.97)}
+.btn .arr{flex:none;display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--orange);color:var(--ink);transition:transform 250ms var(--ease-out),background-color 200ms ease,color 200ms ease}
+.btn .arr svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.btn.out{background:transparent;color:var(--ink)}
+@media (max-width:400px){.btn{font-size:15px;padding:12px 18px;gap:10px}}
+@media (hover:hover) and (pointer:fine){
+  .btn:hover{background:var(--orange);border-color:var(--orange);color:var(--ink)}
+  .btn:hover .arr{transform:rotate(-45deg);background:var(--ink);color:var(--orange)}
+  .btn.out:hover{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+}
+
+/* ---------- 4. REVEALS E TEXTO POR PALAVRA ---------- */
+/* Só escondem quando há JS (classe .js no <html>), senão o texto aparece normal */
+.js .rv{opacity:0;transform:translateY(32px);transition:opacity 700ms var(--ease-out),transform 900ms var(--ease-out);transition-delay:calc(var(--d,0)*70ms)}
+.js .rv.in{opacity:1;transform:none}
+.split .w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.12em;margin-bottom:-.12em}
+.split .w>i{display:inline-block;font-style:normal;transform:translateY(105%) rotate(4deg);transform-origin:0 100%;transition:transform 900ms var(--ease-out);transition-delay:calc(var(--i)*40ms)}
+.split.in .w>i{transform:none}
+
+/* ---------- 5. HERO ---------- */
+.hero{height:160vh;position:relative}
+/* margin-top:auto em vez de justify-content:flex-end: se faltar altura, o conteúdo
+   transborda para baixo e nunca sobe para baixo do nav */
+.hero .pin{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;display:flex;flex-direction:column;padding:clamp(84px,12vh,120px) 0 clamp(40px,7vh,96px)}
+.hero .pin>.wrap{margin-top:auto}
+/* a promessa ocupa a largura: 2 linhas no desktop, 4 no celular; svh limita em telas baixas */
+.hero-giant{font-size:clamp(56px,min(14.5vw,27svh),215px);font-weight:800;letter-spacing:-.07em;line-height:.86;margin-left:-.04em;will-change:transform}
+.hero-giant>.split,.hero-giant .ln{display:block}
+.hero-giant .w{padding-bottom:.24em;margin-bottom:-.24em}   /* máscara mais funda: não corta a cedilha de "balcão" */
+@media (max-width:760px){.hero-giant{font-size:clamp(48px,min(22vw,11.5svh),120px)}}
+.hero-giant em{font-style:normal;color:var(--orange)}
+.hero-sub{margin-top:clamp(18px,3.2vh,34px);max-width:600px;will-change:opacity}
+.hero-lead{font-size:clamp(19px,1.9vw,27px);line-height:1.16;letter-spacing:-.025em;font-weight:500;text-wrap:pretty}
+.hero-lead b{background:var(--lime);padding:0 .18em;border-radius:.2em;font-weight:700;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.hero-cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:clamp(20px,3.4vh,32px);will-change:transform,opacity}
+.sticker{position:absolute;right:max(var(--gutter),calc((100vw - 1240px)/2));bottom:clamp(40px,7vh,96px);width:clamp(104px,14vw,190px);aspect-ratio:1;will-change:transform;container-type:inline-size}
+.sticker>svg{width:100%;height:100%;animation:rot 18s linear infinite}
+.sticker text{font-family:var(--mono);font-size:11.6px;letter-spacing:.25em;fill:var(--ink);text-transform:uppercase}
+.sticker .core{position:absolute;inset:26%;border-radius:50%;background:var(--orange);display:grid;place-items:center}
+/* "m" do logotipo: contorno vetorial do glifo "m" da Bricolage Grotesque 800
+   (mesma fonte e peso do .logo); é o mesmo desenho do favicon.svg */
+.sticker .core-m{width:52%;height:auto;fill:var(--ink)}
+@keyframes rot{to{transform:rotate(1turn)}}
+@media (max-width:760px){
+  .sticker{bottom:auto;top:clamp(72px,10vh,96px);width:96px;right:var(--gutter)}
+  .hero-cta .btn{width:100%}
+}
+@media (max-width:760px) and (max-height:700px){.sticker{display:none}}
+
+/* ---------- 6. MARQUEE ---------- */
+.marq{background:var(--ink);color:var(--paper);overflow:hidden;padding:18px 0;transform:rotate(-1.4deg);margin:0 -2vw;position:relative;z-index:2}
+.marq-t{display:flex;gap:36px;width:max-content;font-size:clamp(28px,4.4vw,56px);font-weight:800;letter-spacing:-.04em;white-space:nowrap;will-change:transform}
+.marq-t em{font-style:normal;color:var(--orange)}
+
+/* ---------- 7. O PROBLEMA (SPIN) ---------- */
+.spin{padding:clamp(96px,13vw,180px) 0 clamp(64px,9vw,120px)}
+/* cards 2×2: cada ponto com sua cor; 04 (a saída) em lima com contorno tinta */
+.spin-list{margin-top:clamp(40px,6vw,80px);display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.spin-row{display:flex;flex-direction:column;gap:clamp(28px,4vw,56px);justify-content:space-between;border-radius:32px;padding:clamp(24px,3vw,40px);min-height:clamp(300px,30vw,420px)}
+.spin-row--a{background:var(--pink)}
+.spin-row--b{background:var(--orange)}
+.spin-row--c{background:var(--cobalt);color:var(--paper)}
+.spin-row--yes{background:var(--lime);box-shadow:inset 0 0 0 2px var(--ink)}
+.spin-tag{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.spin-n{font-size:clamp(72px,9vw,140px);font-weight:800;letter-spacing:-.08em;line-height:.8;font-variant-numeric:tabular-nums}
+.spin-tag .mono{padding:8px 12px;border:1.5px solid currentColor;border-radius:99px;white-space:nowrap}
+.spin-row h3{font-size:clamp(24px,2.6vw,38px);font-weight:700;letter-spacing:-.045em;line-height:1.02;max-width:22ch}
+.spin-row p{margin-top:12px;font-size:clamp(16px,1.4vw,18px);max-width:52ch}
+@media (max-width:760px){.spin-list{grid-template-columns:1fr}.spin-row{min-height:0}}
+
+/* ---------- 8. MECÂNICA ---------- */
+/* sem padding em cima: o mini-game (8b) encosta na borda e o overflow arredonda os cantos */
+.mech{background:var(--ink);color:var(--paper);padding:0 0 clamp(80px,12vw,160px);border-radius:44px;margin-inline:clamp(0px,1vw,16px);overflow:hidden}
+.mech .kicker{color:#bdb6a8}
+.mech .h-xl em{color:var(--lime)}
+/* "Vida" pixelada: o canvas desenha os blocos (script.js → PIXEL); o texto real
+   fica escondido até o fim e assume no último passo. Sem JS, aparece normal. */
+.px{position:relative;display:inline-block}
+.js .px:not(.done){color:transparent}
+.px canvas{position:absolute;left:0;top:0;image-rendering:pixelated;pointer-events:none}
+.px.done canvas{display:none}
+.mech-lead{margin-top:24px;font-size:clamp(18px,2vw,24px);line-height:1.3;letter-spacing:-.02em;max-width:52ch;color:#e4ddcf}
+.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:clamp(40px,6vw,72px);counter-reset:f}
+.flow-i{position:relative;background:#1e1e1e;border:1.5px solid #333;border-radius:28px;padding:24px 22px 26px;display:flex;flex-direction:column;gap:8px}
+.flow-i:not(:last-child)::after{content:"→";position:absolute;right:-14px;top:34px;z-index:2;width:28px;height:28px;border-radius:50%;background:var(--peach);color:var(--ink);display:grid;place-items:center;font-weight:800;font-size:15px}
+.flow-ic{width:52px;height:52px;border-radius:16px;background:var(--lime);color:var(--ink);display:grid;place-items:center;margin-bottom:10px}
+.flow-ic svg{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.flow-i b{font-size:clamp(24px,2.4vw,32px);letter-spacing:-.04em;line-height:1}
+.flow-i span:last-child{color:#cfc8ba;font-size:16px}
+@media (max-width:900px){
+  .flow{grid-template-columns:1fr 1fr}
+  .flow-i:nth-child(2)::after{display:none}
+}
+@media (max-width:520px){
+  .flow{grid-template-columns:1fr;gap:20px}
+  .flow-i:nth-child(2)::after{display:grid}
+  .flow-i:not(:last-child)::after{content:"↓";right:auto;left:28px;top:auto;bottom:-24px}
+}
+.example{margin-top:clamp(40px,6vw,72px);background:var(--paper);color:var(--ink);border-radius:32px;padding:clamp(24px,4vw,52px)}
+.ex-tag{color:var(--muted)}
+.example h3{margin-top:12px;font-size:clamp(28px,3.8vw,54px);font-weight:800;letter-spacing:-.05em;line-height:.98;max-width:20ch}
+.ex-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(20px,4vw,56px);margin-top:24px;align-items:start}
+.ex-grid>p{font-size:clamp(16px,1.5vw,19px)}
+.ex-rules{display:flex;flex-direction:column;gap:10px}
+.ex-rules li{background:#fff;border-radius:16px;padding:14px 16px;font-weight:500}
+.ex-rules .mono{display:block;font-size:11px;color:var(--cobalt);margin-bottom:2px}
+.ex-note{margin-top:24px;font-size:15px;color:var(--muted)}
+.ex-note a{text-decoration:underline;text-underline-offset:3px;color:var(--ink);font-weight:700;display:inline-block;padding:12px 0;margin:-12px 0}
+@media (max-width:760px){.ex-grid{grid-template-columns:1fr}}
+
+/* ---------- 8b. MINI-GAME (side-scroller em CSS puro, no topo da seção) ----------
+   Assets: assets/game/*.webp, gerados por tools/gerar-sprites-jogo.py.
+   1 pixel de arte = 4 px de tela. O mundo (world.webp, 300 px de arte = 1200 px)
+   anda 1200 px a cada 8 s; o skatista fica parado em x = --hx e só sobe e desce.
+   O mundo e as moedas são deslocados por (--hx − 140 px), então a conta abaixo
+   vale para qualquer --hx: os % de g-jump/g-air/g-get* = deslocamento do mundo ÷ 300.
+   Se mudar world.webp, a posição das moedas ou --g-loop, recalcule os %.
+   Desktop: o jogo ocupa a direita do topo e some para a esquerda (mask) atrás do título.
+   Celular: vira uma faixa no topo, com o texto embaixo. */
+.mech{--fade-h:216px;--game-h:calc(var(--fade-h) + 260px)}
+.mech-top{position:relative;min-height:var(--game-h);padding:clamp(80px,12vw,160px) 0 72px;display:flex;flex-direction:column;justify-content:flex-end}
+.mech-top>.wrap{position:relative;z-index:1}
+/* sombra seca (estilo 16-bit) só para o título continuar legível sobre o céu */
+.mech-top .h-xl{text-shadow:0 4px 0 var(--ink)}
+.mech-top .mech-lead{max-width:40ch;text-shadow:0 1px 12px rgba(18,18,18,.95),0 0 3px rgba(18,18,18,.9)}
+
+.game{--g-loop:8s;--hx:56cqw;position:absolute;top:0;right:0;width:min(68%,1200px);height:var(--game-h);margin:0;container-type:inline-size;-webkit-mask-image:linear-gradient(90deg,transparent,#000 40%);mask-image:linear-gradient(90deg,transparent,#000 40%)}
+/* tinta → cobalto → lilás em blocos de 12 px (dither ordenado, estilo 16-bit) */
+.game-fade{height:var(--fade-h);background:url(assets/game/game-fade.webp) repeat-x 0 0/1200px var(--fade-h);image-rendering:pixelated}
+/* céu em faixas secas, sem degradê suave: lilás → rosa → pêssego */
+.game-scene{position:relative;height:260px;overflow:hidden;background:linear-gradient(#a9b4ff 0 18%,#bdbaf5 18% 34%,#d6b9e9 34% 48%,#ffb7d5 48% 62%,#ffc8c0 62% 74%,var(--peach) 74%)}
+.g-far,.g-world{position:absolute;left:0;bottom:0;height:260px;image-rendering:pixelated;will-change:transform}
+.g-far{width:calc(100% + 800px);background:url(assets/game/far.webp) repeat-x 0 0/800px 260px;animation:g-scroll-far calc(var(--g-loop)*3) linear infinite}
+.g-world{width:calc(100% + 1200px);background:url(assets/game/world.webp) repeat-x calc(var(--hx) - 140px) 0/1200px 260px;animation:g-scroll var(--g-loop) linear infinite}
+@keyframes g-scroll{to{transform:translateX(-1200px)}}
+@keyframes g-scroll-far{to{transform:translateX(-800px)}}
+
+/* skatista 80×100 (20×25 de arte) · quadros: rodando ×2, pulo */
+.g-hero{position:absolute;left:var(--hx);bottom:52px;width:80px;height:100px;animation:g-jump var(--g-loop) linear infinite;will-change:transform}
+.g-ride,.g-jump{position:absolute;inset:0;background:url(assets/game/hero.webp) no-repeat 0 0/240px 100px;image-rendering:pixelated}
+.g-ride{animation:g-ride .3s steps(2) infinite,g-ground var(--g-loop) steps(1,end) infinite}
+.g-jump{background-position:-160px 0;opacity:0;animation:g-air var(--g-loop) steps(1,end) infinite}
+@keyframes g-ride{to{background-position:-160px 0}}
+/* subida ease-out, descida ease-in · px de tela: caixote 72, plataforma 100→64, cano 96 */
+@keyframes g-jump{
+  0%,6%{transform:translateY(0);animation-timing-function:cubic-bezier(.33,.9,.6,1)}
+  13%{transform:translateY(-72px);animation-timing-function:cubic-bezier(.4,0,.67,.1)}
+  20%,28%{transform:translateY(0);animation-timing-function:cubic-bezier(.33,.9,.6,1)}
+  34%{transform:translateY(-100px);animation-timing-function:cubic-bezier(.4,0,.67,.1)}
+  39.333%,54%{transform:translateY(-64px);animation-timing-function:cubic-bezier(.4,0,.67,.1)}
+  57.333%,61.333%{transform:translateY(0);animation-timing-function:cubic-bezier(.33,.9,.6,1)}
+  69.333%{transform:translateY(-96px);animation-timing-function:cubic-bezier(.4,0,.67,.1)}
+  77.333%,100%{transform:translateY(0)}
+}
+/* quadro de pulo só no ar (mesmos instantes de g-jump) */
+@keyframes g-air{0%{opacity:0}6%{opacity:1}20%{opacity:0}28%{opacity:1}39.333%{opacity:0}54%{opacity:1}57.333%{opacity:0}61.333%{opacity:1}77.333%{opacity:0}}
+@keyframes g-ground{0%{opacity:1}6%{opacity:0}20%{opacity:1}28%{opacity:0}39.333%{opacity:1}54%{opacity:0}57.333%{opacity:1}61.333%{opacity:0}77.333%{opacity:1}}
+
+/* moedas = garrafinhas de Cola girando. Cada <i> tem duas cópias:
+   ::before no trecho atual (é coletada: sobe e some quando o skatista passa)
+   ::after um trecho à frente (+1200 px), sempre visível, para a emenda do loop */
+.g-coins{position:absolute;left:calc(var(--hx) - 140px);bottom:0;width:1200px;height:260px}
+.g-coin{position:absolute;width:32px;height:56px;left:var(--x);bottom:var(--y)}
+.g-coin::before,.g-coin::after{content:"";position:absolute;inset:0;background:url(assets/game/coin.webp) no-repeat 0 0/128px 56px;image-rendering:pixelated;animation:g-spin .8s steps(4) infinite}
+.g-coin::after{left:1200px;right:-1200px}
+@keyframes g-spin{to{background-position:-128px 0}}
+.g-coin.c1{--x:232px;--y:76px}.g-coin.c1::before{animation:g-spin .8s steps(4) infinite,g-get1 var(--g-loop) linear infinite}
+.g-coin.c2{--x:320px;--y:156px}.g-coin.c2::before{animation:g-spin .8s steps(4) infinite,g-get2 var(--g-loop) linear infinite}
+.g-coin.c3{--x:672px;--y:140px}.g-coin.c3::before{animation:g-spin .8s steps(4) infinite,g-get3 var(--g-loop) linear infinite}
+.g-coin.c4{--x:752px;--y:140px}.g-coin.c4::before{animation:g-spin .8s steps(4) infinite,g-get4 var(--g-loop) linear infinite}
+.g-coin.c5{--x:1008px;--y:180px}.g-coin.c5::before{animation:g-spin .8s steps(4) infinite,g-get5 var(--g-loop) linear infinite}
+.g-coin.c6{--x:1136px;--y:76px}.g-coin.c6::before{animation:g-spin .8s steps(4) infinite,g-get6 var(--g-loop) linear infinite}
+@keyframes g-get1{0%,4%{opacity:1;transform:none}7%,100%{opacity:0;transform:translateY(-32px) scale(1.5)}}
+@keyframes g-get2{0%,11.333%{opacity:1;transform:none}14.333%,100%{opacity:0;transform:translateY(-32px) scale(1.5)}}
+@keyframes g-get3{0%,40.667%{opacity:1;transform:none}43.667%,100%{opacity:0;transform:translateY(-32px) scale(1.5)}}
+@keyframes g-get4{0%,47.333%{opacity:1;transform:none}50.333%,100%{opacity:0;transform:translateY(-32px) scale(1.5)}}
+@keyframes g-get5{0%,68.667%{opacity:1;transform:none}71.667%,100%{opacity:0;transform:translateY(-32px) scale(1.5)}}
+@keyframes g-get6{0%,79.333%{opacity:1;transform:none}82.333%,100%{opacity:0;transform:translateY(-32px) scale(1.5)}}
+
+/* brilho pixelado: pisca em 4 quadros e fica para trás como rastro */
+.g-spark{position:absolute;width:28px;height:28px;background:url(assets/game/spark.webp) no-repeat 0 0/112px 28px;image-rendering:pixelated;animation:g-twinkle .6s steps(4) infinite,g-trail 1.2s linear infinite}
+.g-spark.s1{left:-18px;top:14px}
+.g-spark.s2{left:-30px;top:52px;animation-delay:-.2s,-.4s}
+.g-spark.s3{left:64px;top:-24px;animation-delay:-.4s,-.8s}
+@keyframes g-twinkle{to{background-position:-112px 0}}
+@keyframes g-trail{from{transform:translateX(0);opacity:1}to{transform:translateX(-44px);opacity:0}}
+
+/* legenda na faixa de chão (52 px de tinta): nunca cruza o pulo */
+.game-cap{position:absolute;right:var(--gutter);bottom:0;line-height:40px;z-index:2;font-size:11px;color:var(--paper)}
+.game-cap b{font-weight:500;color:var(--lime)}
+
+/* pausa fora da tela (script.js → MINI-GAME); tudo pausa junto, então segue sincronizado */
+.js .game:not(.on) .game-scene *,.js .game:not(.on) .game-scene *::before,.js .game:not(.on) .game-scene *::after{animation-play-state:paused}
+
+@media (max-width:900px){
+  .mech{--fade-h:144px}
+  .mech-top{display:block;min-height:0;padding:0}
+  .mech-top>.wrap{padding-top:clamp(32px,6vw,56px)}
+  .game{--hx:30cqw;position:relative;width:100%;-webkit-mask-image:none;mask-image:none}
+  .game-fade{background-size:800px var(--fade-h)}
+  .mech-top .h-xl,.mech-top .mech-lead{text-shadow:none;max-width:52ch}
+  .game-cap{left:var(--gutter);bottom:9px;line-height:1.4;font-size:10px}
+}
+
+/* ---------- 9. O QUE É ADVERGAME (1ª parte; a 2ª é "Por que funciona", item 11) ---------- */
+.what{padding:clamp(96px,13vw,180px) 0 clamp(64px,9vw,120px)}
+.what-lead{margin-top:24px;font-size:clamp(18px,2vw,24px);letter-spacing:-.02em;line-height:1.3;max-width:50ch}
+.types{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:clamp(40px,6vw,72px)}
+.type{border:2px solid var(--ink);border-radius:28px;padding:clamp(22px,2.6vw,32px);display:flex;flex-direction:column;gap:12px;transition:transform 250ms var(--ease-out)}
+.type-n{color:var(--muted)}
+.type h3{font-size:clamp(30px,3.4vw,46px);font-weight:800;letter-spacing:-.05em;line-height:1}
+.type p{font-size:16px}
+.type-ex{margin-top:auto;padding-top:14px;border-top:1.5px dashed currentColor}
+.type-ex .mono{display:block;margin-bottom:4px;font-size:11px}
+.type--hl{background:var(--orange);border-color:var(--orange)}
+.type--hl .type-n{color:var(--ink)}
+@media (hover:hover) and (pointer:fine){.type:hover{transform:translateY(-4px)}}
+@media (max-width:900px){.types{grid-template-columns:1fr}}
+.vs{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+.vs>div{background:#e9e2d4;border-radius:22px;padding:20px 22px}
+.vs dt{font-weight:700;font-size:18px;letter-spacing:-.02em}
+.vs dd{margin-top:6px;color:var(--muted)}
+@media (max-width:760px){.vs{grid-template-columns:1fr}}
+
+/* ---------- 10. PARTIDA DE 60 S (sticky) ---------- */
+.match{height:420vh;position:relative}
+.match .pin{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;display:grid;align-items:center;background:#ffd9a8}
+.orb{position:absolute;left:50%;top:50%;width:min(120vw,1400px);aspect-ratio:1;translate:-50% -50%;will-change:transform}
+.orb i{position:absolute;left:50%;top:0;width:clamp(60px,9vw,120px);aspect-ratio:1;translate:-50% 0;border-radius:50%;background:var(--orange);box-shadow:0 0 0 12px rgba(255,255,255,.2)}
+.match-grid{display:grid;grid-template-columns:1fr 340px;gap:clamp(30px,6vw,100px);align-items:center;position:relative;z-index:2;padding-top:40px}
+.match-title{font-size:12px;font-weight:500;margin-bottom:18px}
+.clock{font-size:clamp(90px,17vw,280px);font-weight:800;letter-spacing:-.08em;line-height:.85;font-variant-numeric:tabular-nums}
+.clock small{font-size:.3em;letter-spacing:-.04em;margin-left:.08em;opacity:.6}
+.match-cap{margin-top:28px;max-width:520px;min-height:140px;position:relative}
+.gc{position:absolute;inset:0 0 auto 0;opacity:0;transform:translateY(14px);transition:opacity 300ms var(--ease-out),transform 300ms var(--ease-out)}
+.gc.on{opacity:1;transform:none}
+.gc b{display:block;font-size:clamp(26px,3.4vw,46px);letter-spacing:-.045em;line-height:1;font-weight:800}
+.gc span{display:block;margin-top:10px;font-size:clamp(16px,1.6vw,20px);max-width:440px}
+
+/* celular */
+.ph{width:340px;height:min(640px,78svh);border-radius:50px;background:#101010;padding:11px;box-shadow:0 50px 100px -30px rgba(0,0,0,.45),0 0 0 2px #333 inset;justify-self:end;will-change:transform}
+.ph-screen{height:100%;border-radius:40px;background:#efeae0;color:var(--ink);overflow:hidden;display:flex;flex-direction:column;position:relative}
+.ph-screen::before{content:"";position:absolute;left:50%;top:9px;width:92px;height:26px;margin-left:-46px;background:#101010;border-radius:20px;z-index:4}
+.ph-head{padding:48px 18px 12px;background:var(--ink);color:var(--paper);display:flex;justify-content:space-between;align-items:center}
+.ph-head b{font-size:15px;letter-spacing:-.03em}
+.ph-score{font-family:var(--mono);font-size:12px;color:var(--lime);font-variant-numeric:tabular-nums}
+.ph-lives{display:flex;gap:6px;padding:10px 18px;background:var(--ink)}
+.ph-lives i{width:18px;height:16px;background:#3a3a3a;clip-path:path("M9 16C4 12 0 9 0 5a4.5 4.5 0 0 1 9-1.5A4.5 4.5 0 0 1 18 5c0 4-4 7-9 11z");transition:background-color 250ms ease,transform 250ms var(--ease-out)}
+.ph-lives i.on{background:var(--orange)}
+.stage{flex:1;position:relative;overflow:hidden;background:linear-gradient(#fff6e6,#efeae0)}
+.sg{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;text-align:center;padding:20px;opacity:0;transform:translateY(12px) scale(.97);transition:opacity 300ms var(--ease-out),transform 300ms var(--ease-out)}
+.sg.on{opacity:1;transform:none}
+.sg b{font-size:40px;letter-spacing:-.05em;line-height:.95;font-weight:800}
+.sg-life b{color:var(--orange)}
+.sg-qr svg{width:46%;max-width:150px;fill:var(--ink);background:#fff;padding:8px;border-radius:12px}
+.sg-tut b{font-size:28px}
+.tap{width:56px;height:56px;border-radius:50%;border:3px solid var(--ink);position:relative}
+.tap::after{content:"";position:absolute;inset:-12px;border-radius:50%;border:2px solid var(--orange);animation:tap 1.4s var(--ease-out) infinite}
+@keyframes tap{from{transform:scale(.6);opacity:1}to{transform:scale(1.2);opacity:0}}
+.sg-play{justify-content:flex-end}
+.it{position:absolute;top:-30px;width:26px;height:26px;border-radius:9px;animation:fall 1.8s linear infinite}
+.it.a{left:18%;background:var(--orange)}
+.it.b{left:44%;background:var(--cobalt);border-radius:50%;animation-delay:-.6s;animation-duration:1.5s}
+.it.c{left:66%;background:var(--lime);animation-delay:-1.1s}
+.it.d{left:80%;background:var(--pink);border-radius:50%;animation-delay:-.3s;animation-duration:2.1s}
+@keyframes fall{to{transform:translateY(calc(var(--stage-h,320px) + 40px)) rotate(180deg)}}
+.catcher{width:72px;height:14px;border-radius:99px;background:var(--ink);animation:slide 2.4s var(--ease-in-out) infinite alternate}
+@keyframes slide{from{transform:translateX(-70px)}to{transform:translateX(70px)}}
+.sg-rec b{font-size:96px;color:var(--cobalt)}
+.sg-share{align-items:stretch}
+.bubble{background:#fff;border-radius:18px 18px 18px 4px;padding:10px 14px;font-size:14px;text-align:left;align-self:flex-start;max-width:85%;box-shadow:0 6px 18px -10px rgba(0,0,0,.25)}
+.bubble.me{background:var(--lime);border-radius:18px 18px 4px 18px;align-self:flex-end}
+.sg-prize{background:var(--lime)}
+.sg-prize b{font-size:34px}
+.ph-foot{padding:12px 18px 18px;font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.08em;display:flex;justify-content:space-between;color:#5a554c}
+.you{position:absolute;left:50%;bottom:20px;transform:translateX(-50%);z-index:3;font-size:11px;padding:9px 16px;border-radius:99px;background:rgba(255,255,255,.6);color:var(--ink);backdrop-filter:blur(10px);display:flex;align-items:center;gap:8px;white-space:nowrap;transition:opacity 300ms ease}
+.you::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--orange);animation:pulse 1.6s infinite}
+@keyframes pulse{50%{transform:scale(1.6);opacity:.4}}
+
+@media (max-width:900px){
+  .orb{opacity:.45}
+  .match-grid{grid-template-columns:1fr;gap:14px;align-content:center;padding-top:56px}
+  .match-title{margin-bottom:6px;font-size:11px}
+  .clock{font-size:clamp(56px,16vw,120px)}
+  .match-cap{margin-top:10px;min-height:96px}
+  .gc b{font-size:clamp(22px,6vw,32px)}
+  .gc span{font-size:15px;margin-top:6px}
+  .ph{width:min(64vw,250px);height:clamp(240px,calc(100svh - 360px),470px);justify-self:center;border-radius:36px;padding:8px}
+  .ph-screen{border-radius:28px}
+  .ph-screen::before{width:70px;height:20px;margin-left:-35px;top:7px}
+  .ph-head{padding:34px 14px 8px}
+  .sg b{font-size:30px}.sg-rec b{font-size:64px}.sg-tut b{font-size:22px}.sg-prize b{font-size:26px}
+  .you{display:none}
+}
+
+/* ---------- 11. POR QUE FUNCIONA (2ª parte da seção .what, cards empilhados) ---------- */
+.why{margin-top:clamp(96px,13vw,180px)}
+.stack-list{margin-top:clamp(40px,7vw,90px)}
+.sc{position:sticky;top:calc(72px + var(--i)*18px);margin-bottom:34px;border-radius:36px;padding:clamp(26px,4vw,56px);min-height:min(62svh,500px);display:grid;grid-template-columns:1.1fr .9fr;gap:30px;align-items:end;transform-origin:50% 0;box-shadow:0 -20px 60px -30px rgba(0,0,0,.35);overflow:hidden}
+.sc .n{font-size:13px}
+.sc h4{font-size:clamp(34px,5.2vw,80px);font-weight:800;letter-spacing:-.06em;line-height:.92;margin-top:14px}
+.sc p{font-size:clamp(17px,1.8vw,22px);line-height:1.28;letter-spacing:-.02em;max-width:420px}
+.sc ul{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px}
+.sc li{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;padding:8px 12px;border:1.5px solid currentColor;border-radius:99px}
+.sc .glyph{position:absolute;right:clamp(20px,4vw,50px);top:clamp(14px,3vw,36px);font-size:clamp(110px,18vw,260px);font-weight:800;letter-spacing:-.1em;line-height:.8;opacity:.16;pointer-events:none;user-select:none}
+.sc.c1{background:var(--orange);color:var(--ink)}
+.sc.c2{background:var(--cobalt);color:var(--paper)}
+.sc.c3{background:var(--lime);color:var(--ink)}
+.sc.c4{background:var(--ink);color:var(--paper)}
+@media (max-width:760px){.sc{grid-template-columns:1fr;min-height:400px;top:calc(64px + var(--i)*12px);border-radius:28px}}
+
+/* ---------- 12. LINHA DO TEMPO ---------- */
+.time{padding:clamp(80px,11vw,160px) 0;border-top:2px solid var(--ink)}
+.tl{position:relative;margin-top:clamp(40px,6vw,80px);padding-left:0}
+.tl-line{position:absolute;left:calc(clamp(120px,22vw,300px) - 1px);top:0;bottom:0;width:3px;background:var(--orange);transform:scaleY(0);transform-origin:top;border-radius:3px}
+.tl-i{display:grid;grid-template-columns:clamp(120px,22vw,300px) 1fr;gap:clamp(20px,4vw,56px);padding:clamp(18px,2.4vw,30px) 0;border-bottom:1.5px solid rgba(18,18,18,.18);align-items:baseline}
+.tl-y{font-size:clamp(44px,7vw,110px);font-weight:800;letter-spacing:-.07em;line-height:.85;font-variant-numeric:tabular-nums;padding-right:20px}
+.tl-i h3{font-size:clamp(22px,2.6vw,34px);letter-spacing:-.04em;line-height:1.05}
+.tl-i h3 small{font-size:11px;color:var(--muted);margin-left:8px;vertical-align:middle;letter-spacing:.08em;white-space:nowrap}
+.tl-i p{margin-top:6px;color:var(--muted);max-width:52ch}
+@media (max-width:600px){
+  .tl-line{left:0}
+  .tl-i{grid-template-columns:1fr;gap:6px;padding-left:20px}
+}
+.lesson{margin-top:clamp(40px,6vw,72px);background:var(--pink);border-radius:32px;padding:clamp(26px,4vw,52px)}
+.lesson p{font-size:clamp(22px,3vw,40px);letter-spacing:-.04em;line-height:1.1;font-weight:500;max-width:30ch}
+.lesson b{font-weight:800}
+
+/* ---------- 13. PROCESSO ---------- */
+.proc{background:var(--cobalt);color:var(--paper);padding:clamp(80px,12vw,160px) 0;border-radius:44px;margin-inline:clamp(0px,1vw,16px)}
+.proc .kicker{color:#d6daff}
+.proc .h-xl{max-width:16ch}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:clamp(40px,6vw,72px)}
+.step{background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.25);border-radius:28px;padding:clamp(22px,2.6vw,32px);transition:transform 250ms var(--ease-out),background-color 200ms ease}
+.step .mono{color:var(--lime);font-size:13px}
+.step h3{margin-top:28px;font-size:clamp(26px,2.8vw,38px);letter-spacing:-.05em;line-height:1}
+.step p{margin-top:10px;color:#e6e8ff}
+@media (hover:hover) and (pointer:fine){.step:hover{transform:translateY(-4px);background:rgba(255,255,255,.14)}}
+@media (max-width:900px){.steps{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.steps{grid-template-columns:1fr}}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+.chips li{padding:10px 14px;border-radius:99px;background:var(--lime);color:var(--ink)}
+.rules{margin-top:clamp(56px,8vw,100px);border-top:1.5px solid rgba(255,255,255,.3);padding-top:24px}
+.rules-cap{color:#d6daff}
+.rules-grid{display:grid;grid-template-columns:repeat(4,1fr);margin-top:20px}
+.rl{padding:8px 20px 8px 0;border-right:1.5px solid rgba(255,255,255,.3);padding-left:20px}
+.rl:first-child{padding-left:0}.rl:last-child{border-right:0}
+.rl b{display:block;white-space:nowrap;font-size:clamp(44px,7.4vw,120px);font-weight:800;letter-spacing:-.07em;line-height:.85;font-variant-numeric:tabular-nums}
+.rl>span{display:block;margin-top:10px;color:#e6e8ff}   /* só a legenda; o número animado fica na linha do "s" */
+@media (max-width:760px){
+  .rules-grid{grid-template-columns:1fr 1fr;row-gap:28px}
+  .rl:nth-child(2){border-right:0}
+  .rl:nth-child(3){padding-left:0}
+}
+
+/* ---------- 15. COMPROMISSO RESPONSÁVEL ---------- */
+.resp{padding:clamp(96px,13vw,180px) 0 clamp(80px,11vw,160px)}
+.r-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:clamp(36px,5vw,60px)}
+.r{background:#fff;border-radius:26px;padding:clamp(22px,2.6vw,32px)}
+.r h3{font-size:clamp(22px,2.2vw,28px);letter-spacing:-.04em;line-height:1.05}
+.r p{margin-top:10px;color:var(--muted)}
+.r a{color:var(--ink);font-weight:700;text-decoration:underline;text-underline-offset:3px}
+.r-note{margin-top:20px;font-size:14px;color:var(--muted);max-width:70ch}
+@media (max-width:760px){.r-grid{grid-template-columns:1fr}}
+
+/* ---------- 16. CTA FINAL + RODAPÉ ---------- */
+.cta{background:var(--cobalt);color:var(--paper);padding:clamp(80px,11vw,160px) 0 clamp(40px,6vw,70px);position:relative;overflow:hidden;border-radius:44px 44px 0 0}
+.cta h2{font-size:clamp(52px,12vw,210px);font-weight:800;letter-spacing:-.075em;line-height:.84;max-width:9ch}
+.cta h2 em{font-style:normal;color:var(--lime)}
+.cta .row{display:flex;justify-content:space-between;align-items:end;gap:30px;flex-wrap:wrap;margin:40px 0}
+.cta p{font-size:clamp(18px,2vw,26px);letter-spacing:-.025em;max-width:460px;line-height:1.18}
+.cta .btn{background:var(--lime);border-color:var(--lime);color:var(--ink);font-size:clamp(17px,1.6vw,20px);padding:18px 30px}
+.cta .btn .arr{background:var(--ink);color:var(--lime)}
+@media (hover:hover) and (pointer:fine){.cta .btn:hover{background:#fff;border-color:#fff}.cta .btn:hover .arr{background:var(--orange);color:var(--ink)}}
+.contact{display:flex;flex-wrap:wrap;gap:10px 28px;border-top:1px solid rgba(255,255,255,.3);padding-top:22px}
+.contact li{display:flex;align-items:center;gap:10px}
+.contact .mono{color:#d6daff}
+.contact a{min-height:44px;display:inline-flex;align-items:center;font-weight:700;text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1.5px}
+@media (hover:hover) and (pointer:fine){.contact a:hover{color:var(--lime)}}
+.blob{position:absolute;border-radius:50%;filter:blur(2px);will-change:transform;pointer-events:none}
+.b1{width:34vw;aspect-ratio:1;right:-10vw;top:-12vw;background:var(--orange);opacity:.9}
+.b2{width:16vw;aspect-ratio:1;left:56%;top:30%;background:var(--pink);opacity:.85}
+.cta .wrap{position:relative;z-index:2}
+@media (max-width:760px){.cta .btn{width:100%}.b2{left:70%;top:10%}}
+
+.foot{background:var(--cobalt);color:var(--paper)}
+.foot-in{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px 20px;padding:18px 0 26px;border-top:1px solid rgba(255,255,255,.3)}
+.foot-in a{min-height:44px;display:inline-flex;align-items:center}
+
+/* ---------- 16b. PERGUNTAS FREQUENTES (perguntas-frequentes.html) ----------
+   Acordeão com <details name="faq"> nativo: abre sem JS e só um fica aberto.
+   Abrir é ação ocasional, então anima: altura em 260 ms ease-out (onde o
+   navegador suporta ::details-content) e a resposta entra com fade curto.
+   O "+" gira 45° e vira "×"; no toque, encolhe um pouco (feedback de clique). */
+.faq-head{padding:clamp(120px,16vw,200px) 0 clamp(40px,6vw,72px)}
+.crumbs{color:var(--muted);margin-bottom:22px;display:flex;gap:10px;flex-wrap:wrap}
+.crumbs a{text-decoration:underline;text-underline-offset:3px}
+.faq-head .h-xl{max-width:12ch}
+.faq-lead{margin-top:24px;font-size:clamp(18px,2vw,24px);letter-spacing:-.02em;line-height:1.3;max-width:50ch}
+
+.faq{padding-bottom:clamp(40px,6vw,72px)}
+.faq-wrap>*{max-width:880px}
+.q{border-top:2px solid var(--ink)}
+.q:last-child{border-bottom:2px solid var(--ink)}
+.q summary{list-style:none;display:grid;grid-template-columns:44px 1fr 44px;gap:clamp(12px,2vw,24px);align-items:center;padding:clamp(20px,2.6vw,28px) 0;cursor:pointer;-webkit-user-select:none;user-select:none}
+.q summary::-webkit-details-marker{display:none}
+.q summary:focus-visible{outline-offset:6px}
+.q-n{color:var(--muted);font-variant-numeric:tabular-nums}
+.q h2{font-size:clamp(21px,2.6vw,34px);font-weight:700;letter-spacing:-.04em;line-height:1.06;text-wrap:balance}
+.q-ic{position:relative;width:44px;height:44px;border-radius:50%;background:var(--ink);transition:transform 200ms var(--ease-out),background-color 200ms ease}
+.q-ic::before,.q-ic::after{content:"";position:absolute;left:50%;top:50%;width:16px;height:2.5px;margin:-1.25px 0 0 -8px;border-radius:2px;background:var(--paper);transition:background-color 200ms ease}
+.q-ic::after{transform:rotate(90deg)}
+.q[open] .q-ic{transform:rotate(45deg);background:var(--orange)}
+.q[open] .q-ic::before,.q[open] .q-ic::after{background:var(--ink)}
+.q summary:active .q-ic{transform:scale(.92)}
+.q[open] summary:active .q-ic{transform:rotate(45deg) scale(.92)}
+@media (hover:hover) and (pointer:fine){
+  .q summary:hover .q-ic{background:var(--cobalt)}
+  .q[open] summary:hover .q-ic{background:var(--orange)}
+}
+
+/* resposta alinhada ao texto da pergunta (pula a coluna do número) */
+.a{padding:0 calc(44px + clamp(12px,2vw,24px)) clamp(26px,3vw,36px);max-width:none}
+.a p{font-size:clamp(16px,1.5vw,19px);line-height:1.45;max-width:62ch}
+.a p+p{margin-top:12px}
+.q[open] .a{animation:faq-in 260ms var(--ease-out)}
+@keyframes faq-in{from{opacity:0;transform:translateY(-6px)}}
+
+/* número de destaque com a legenda ao lado */
+.a .stat{display:flex;width:fit-content;align-items:center;gap:6px 16px;flex-wrap:wrap;max-width:100%;background:var(--lime);border-radius:20px;padding:16px 20px;margin-bottom:18px}
+.q:nth-child(even) .stat{background:var(--pink)}
+.stat b{font-size:clamp(34px,4.6vw,54px);font-weight:800;letter-spacing:-.06em;line-height:.9;white-space:nowrap}
+.stat span{font-size:15px;font-weight:500;line-height:1.25;max-width:34ch}
+.a .src{margin-top:16px;font-size:14px;color:var(--muted)}
+.src a,.faq-sources a{color:var(--ink);text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px}
+@media (hover:hover) and (pointer:fine){.src a:hover,.faq-sources a:hover{color:var(--cobalt)}}
+
+@supports (interpolate-size:allow-keywords) and selector(::details-content){
+  .faq{interpolate-size:allow-keywords}
+  .q::details-content{block-size:0;overflow:clip;transition:block-size 260ms var(--ease-out),content-visibility 260ms allow-discrete}
+  .q[open]::details-content{block-size:auto}
+}
+@media (max-width:600px){
+  .q summary{grid-template-columns:1fr 44px}
+  .q-n{display:none}
+  .a{padding-left:0;padding-right:0}
+}
+
+.faq-sources{padding:clamp(40px,6vw,72px) 0 clamp(72px,10vw,140px)}
+.faq-sources h2{color:var(--muted);font-weight:500}
+.faq-sources ol{margin-top:16px;list-style:decimal;padding-left:1.4em;counter-reset:none}
+.faq-sources li{padding:10px 0 10px 6px;border-bottom:1.5px dashed rgba(18,18,18,.25);font-size:15px}
+.faq-sources li::marker{font-family:var(--mono);font-size:12px;color:var(--muted)}
+
+.faq-cta{background:var(--cobalt);color:var(--paper);border-radius:44px 44px 0 0;padding:clamp(72px,10vw,140px) 0 clamp(48px,7vw,80px)}
+.faq-cta-row{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:24px 40px;margin-top:clamp(28px,4vw,44px)}
+.faq-cta h2{font-size:clamp(48px,9vw,150px);font-weight:800;letter-spacing:-.075em;line-height:.86;max-width:10ch}
+.faq-cta h2 em{font-style:normal;color:var(--lime)}
+.faq-cta p{font-size:clamp(18px,2vw,24px);letter-spacing:-.02em;line-height:1.2;max-width:420px}
+.faq-cta .btn{background:var(--lime);border-color:var(--lime);color:var(--ink)}
+.faq-cta .btn .arr{background:var(--ink);color:var(--lime)}
+@media (hover:hover) and (pointer:fine){.faq-cta .btn:hover{background:#fff;border-color:#fff}.faq-cta .btn:hover .arr{background:var(--orange);color:var(--ink)}}
+@media (max-width:760px){.faq-cta .btn{width:100%}}
+
+/* ---------- 17. MOVIMENTO REDUZIDO ---------- */
+/* Mantém só trocas de opacidade; tira deslocamentos, giros e loops */
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .js .rv{transform:none;transition:opacity 300ms ease}
+  .split .w>i{transform:none;transition:none}
+  .js .px{color:var(--lime);opacity:0;transition:opacity 400ms ease}
+  .js .px.done{opacity:1}
+  .sticker>svg,.you::before,.tap::after,.it,.catcher{animation:none}
+  .it{display:none}
+  .gc,.sg{transform:none;transition:opacity 200ms ease}
+  .marq{transform:none}
+  /* mini-game parado: herói no chão, no 1º quadro de caminhada */
+  .game-scene *,.game-scene *::before,.game-scene *::after{animation:none!important}
+  .g-spark{display:none}
+  /* FAQ: abre sem deslizar e o ícone troca sem girar */
+  .q[open] .a{animation:none}
+  .q::details-content{transition:none!important}
+  .q-ic{transition:background-color 200ms ease}
+}

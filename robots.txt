@@ -1,0 +1,5 @@
+# Montaggio · se mudar para domínio próprio, troque o endereço abaixo
+User-agent: *
+Allow: /
+
+Sitemap: https://arturmilk.github.io/montaggio-site/sitemap.xml
