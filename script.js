@@ -66,8 +66,9 @@
      A palavra é rasterizada num canvas minúsculo (1 px = 1 bloco) e ampliada
      com image-rendering: pixelated. Entrada: os blocos acendem em ondas da
      esquerda para a direita. Depois ela fica viva, a 15 fps (degraus, de propósito):
-     um brilho diagonal varre a palavra, alguns blocos cintilam e, de vez em
-     quando, a resolução "engasga" por um instante, como num cartucho antigo.
+     um brilho diagonal varre a palavra, poucos blocos cintilam e, a cada 6 s,
+     a resolução "engasga" por um instante, como num cartucho antigo.
+     Os blocos são pequenos o bastante para a palavra ler bem de longe.
      O texto real continua no HTML (transparente) para leitores de tela e seleção.
      Só anima com a palavra na tela. Com movimento reduzido: texto estático (CSS). */
   const px = $('#pxVida');
@@ -104,10 +105,11 @@
       ctx.putImageData(img, 0, 0);
     };
     const B0 = Math.max(4, Math.round(fs / 8));
-    const coarse = grid(B0), fine = grid(Math.max(3, Math.round(B0 / 2)));
+    /* blocos finos (≈ fs/22) deixam a palavra legível; o "engasgo" usa um meio-termo */
+    const coarse = grid(B0), mid = grid(Math.max(4, Math.round(fs / 12))), fine = grid(Math.max(3, Math.round(fs / 22)));
     /* entrada: cada bloco ganha um instante (onda da esquerda p/ direita + ruído) */
     const at = new Map(coarse.on.map(i => [i, ((i % coarse.cols) / coarse.cols) * 380 + Math.random() * 180]));
-    const SWEEP = intro ? 620 : 0, TICK = 1000 / 15, SHINE = 2400, GLITCH = 4800, GLITCH_LEN = 160;
+    const SWEEP = intro ? 620 : 0, TICK = 1000 / 15, SHINE = 2600, GLITCH = 6000, GLITCH_LEN = 120;
     let t0 = null, lastTick = -1, raf = 0;
     const run = now => {
       t0 ??= now; const t = now - t0, tick = Math.floor(t / TICK);
@@ -119,16 +121,16 @@
           const lt = t - SWEEP;
           if (lt % GLITCH < GLITCH_LEN && lt > GLITCH_LEN) {
             /* engasgo: volta à resolução grossa, com um piscar */
-            paint(coarse, () => Math.random() < .25 ? FLASH : LIME);
+            paint(mid, () => Math.random() < .12 ? FLASH : LIME);
           } else {
             /* brilho diagonal: faixa clara que atravessa a palavra */
             const s = (lt % SHINE) / SHINE * (fine.cols + fine.rows + 16) - 8;
             paint(fine, (i, x, y) => {
               const d = Math.abs(x + y * .6 - s);
-              if (d < 1.2) return FLASH;
-              if (d < 3) return GLOW;
-              if (Math.random() < .015) return FLASH;          /* cintilar */
-              return y % 2 ? SHADE : LIME;                      /* textura de linhas 16-bit */
+              if (d < 1.5) return FLASH;
+              if (d < 3.5) return GLOW;
+              if (Math.random() < .006) return FLASH;          /* cintilar, discreto */
+              return y % 4 === 3 ? SHADE : LIME;               /* linha de varredura leve, a cada 4 */
             });
           }
         }

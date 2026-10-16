@@ -160,7 +160,7 @@ section[id]{scroll-margin-top:64px}
 .mech .h-xl em{color:var(--lime)}
 /* "Vida" pixelada: o canvas desenha os blocos (script.js → PIXEL); o texto real
    fica escondido até o fim e assume no último passo. Sem JS, aparece normal. */
-.px{position:relative;display:inline-block}
+.px{position:relative;display:inline-block;letter-spacing:-.01em}   /* mais ar entre as letras: os blocos não grudam */
 .js .px:not(.done){color:transparent}
 .px canvas{position:absolute;left:0;top:0;image-rendering:pixelated;pointer-events:none}
 .px.done canvas{display:none}
