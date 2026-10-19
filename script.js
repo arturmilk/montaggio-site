@@ -11,7 +11,7 @@
    4c. Mini-game (liga/desliga fora da tela)
    5. Contadores
    6. Marquee (palavras)
-   7. Loop de scroll (hero, marquee, partida, cards, linha do tempo, CTA)
+   7. Loop de scroll (hero, marquee, partida, linha do tempo, CTA)
    ========================================================= */
 (() => {
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -188,9 +188,9 @@
 
   /* ---------- 7. LOOP DE SCROLL ---------- */
   const hero = $('#topo'), giant = $('#giant'), heroCta = $('#heroCta'), sticker = $('#sticker'), heroP = $('#heroP');
-  const match = $('#partida'), matchPin = $('#matchPin'), orb = $('#orb'), clock = $('#clock'), ph = $('#ph');
+  const match = $('#partida'), matchPin = $('#matchPin'), hand = $('#hand'), clock = $('#clock'), ph = $('#ph');
   const caps = $$('.gc'), stages = $$('.sg'), lives = $$('#lives i'), score = $('#score'), tLeft = $('#tLeft'), stage = $('#stage');
-  const cards = $$('.sc'), tl = $('#tl'), tlLine = $('#tlLine');
+  const tl = $('#tl'), tlLine = $('#tlLine');
   const b1 = $('#b1'), b2 = $('#b2'), cta = $('#contato');
 
   /* altura do palco do celular → usada na queda dos itens (CSS --stage-h) */
@@ -250,19 +250,11 @@
       lives.forEach((e, i) => e.classList.toggle('on', i < livesAt[step]));
     }
     score.textContent = Math.round(eOut(range(p, 3 / 7, 5 / 7)) * 2480).toLocaleString('pt-BR');
+    /* ponteiro: uma volta completa = 60 s */
+    hand.style.transform = `rotate(${p * 360}deg)`;
     if (!reduce) {
-      orb.style.transform = `rotate(${lerp(-80, 100, p)}deg)`;
       ph.style.transform = `translateY(${lerp(20, -10, Math.sin(p * Math.PI))}px) rotate(${lerp(-2, 2, p)}deg)`;
     }
-
-    /* cards empilhados: o de baixo encolhe quando o próximo cobre */
-    if (!reduce) cards.forEach((el, i) => {
-      const next = cards[i + 1]; if (!next) return;
-      const r = next.getBoundingClientRect(), r0 = el.getBoundingClientRect();
-      const cover = clamp(1 - (r.top - r0.top) / (r0.height * .9));
-      el.style.transform = cover > 0 ? `scale(${1 - cover * .06}) translateY(${cover * -10}px)` : '';
-      el.style.filter = cover > 0 ? `brightness(${1 - cover * .2})` : '';
-    });
 
     /* linha do tempo: a linha laranja cresce com o scroll */
     const tr = tl.getBoundingClientRect();

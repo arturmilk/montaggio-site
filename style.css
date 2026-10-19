@@ -10,9 +10,8 @@
    6. Marquee
    7. O problema (SPIN)
    8. Mecânica (1 compra = 1 vida)
-   9. O que é advergame
+   9. Já funciona (cases + comparativo)
    10. Partida de 60 s (sticky)
-   11. Por que funciona (cards empilhados)
    12. Linha do tempo
    13. Processo + regras de design
    15. Compromisso responsável
@@ -20,6 +19,18 @@
    16b. Perguntas frequentes (página própria)
    17. Movimento reduzido
    ========================================================= */
+
+/* ---------- FONTES (servidas pelo próprio site) ----------
+   Arquivos em assets/fonts/, baixados do Google Fonts (licença OFL).
+   Ficam aqui, e não no fonts.googleapis.com, para o IP do visitante não ir
+   ao Google (LGPD) e para a CSP das páginas não precisar liberar outro domínio.
+   Bricolage é variável: um arquivo cobre os pesos 400–800 e o eixo opsz. */
+@font-face{font-family:"Bricolage Grotesque";font-style:normal;font-weight:400 800;font-display:swap;src:url(assets/fonts/bricolage-latin-ext.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Bricolage Grotesque";font-style:normal;font-weight:400 800;font-display:swap;src:url(assets/fonts/bricolage-latin.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"DM Mono";font-style:normal;font-weight:400;font-display:swap;src:url(assets/fonts/dmmono-400-latin-ext.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"DM Mono";font-style:normal;font-weight:400;font-display:swap;src:url(assets/fonts/dmmono-400-latin.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"DM Mono";font-style:normal;font-weight:500;font-display:swap;src:url(assets/fonts/dmmono-500-latin-ext.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"DM Mono";font-style:normal;font-weight:500;font-display:swap;src:url(assets/fonts/dmmono-500-latin.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
 
 /* ---------- 0. TOKENS ---------- */
 :root{
@@ -288,31 +299,58 @@ section[id]{scroll-margin-top:64px}
   .game-cap{left:var(--gutter);bottom:9px;line-height:1.4;font-size:10px}
 }
 
-/* ---------- 9. O QUE É ADVERGAME (1ª parte; a 2ª é "Por que funciona", item 11) ---------- */
-.what{padding:clamp(96px,13vw,180px) 0 clamp(64px,9vw,120px)}
-.what-lead{margin-top:24px;font-size:clamp(18px,2vw,24px);letter-spacing:-.02em;line-height:1.3;max-width:50ch}
-.types{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:clamp(40px,6vw,72px)}
-.type{border:2px solid var(--ink);border-radius:28px;padding:clamp(22px,2.6vw,32px);display:flex;flex-direction:column;gap:12px;transition:transform 250ms var(--ease-out)}
-.type-n{color:var(--muted)}
-.type h3{font-size:clamp(30px,3.4vw,46px);font-weight:800;letter-spacing:-.05em;line-height:1}
-.type p{font-size:16px}
-.type-ex{margin-top:auto;padding-top:14px;border-top:1.5px dashed currentColor}
-.type-ex .mono{display:block;margin-bottom:4px;font-size:11px}
-.type--hl{background:var(--orange);border-color:var(--orange)}
-.type--hl .type-n{color:var(--ink)}
-@media (hover:hover) and (pointer:fine){.type:hover{transform:translateY(-4px)}}
-@media (max-width:900px){.types{grid-template-columns:1fr}}
-.vs{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
-.vs>div{background:#e9e2d4;border-radius:22px;padding:20px 22px}
-.vs dt{font-weight:700;font-size:18px;letter-spacing:-.02em}
-.vs dd{margin-top:6px;color:var(--muted)}
-@media (max-width:760px){.vs{grid-template-columns:1fr}}
+/* ---------- 9. JÁ FUNCIONA (cases públicos + comparativo) ---------- */
+.cases{padding:clamp(96px,13vw,180px) 0 clamp(64px,9vw,120px)}
+/* título dos cases + sticker da hero ao lado, ocupando o vazio à direita */
+.cases-head{display:flex;align-items:center;justify-content:space-between;gap:clamp(24px,4vw,64px)}
+.cases-head .sticker{position:relative;right:auto;bottom:auto;top:auto;flex:none;width:clamp(150px,20vw,280px);will-change:auto}
+@media (max-width:760px){.cases-head .sticker{display:none}}
+.cases-lead{margin-top:24px;font-size:clamp(18px,2vw,24px);letter-spacing:-.02em;line-height:1.3;max-width:50ch}
+.case-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:clamp(40px,6vw,72px)}
+.case{border:2px solid var(--ink);border-radius:28px;padding:clamp(22px,2.6vw,32px);display:flex;flex-direction:column;gap:18px}
+.case-tag{color:var(--muted);font-size:11px}
+.case h3{margin-top:10px;font-size:clamp(28px,3vw,42px);font-weight:800;letter-spacing:-.05em;line-height:1}
+.case-sub{margin-top:6px;color:var(--muted)}
+.case-rows>div{display:grid;grid-template-columns:84px 1fr;gap:12px;padding:12px 0;border-top:1.5px dashed currentColor}
+.case-rows dt{font-size:11px;padding-top:3px}
+.case-rows dd{font-size:16px}
+.case-match,.case-gap{font-size:15px;border-radius:16px;padding:12px 16px}
+.case-match{margin-top:auto;background:var(--lime)}
+.case-gap{background:#e9e2d4}
+@media (max-width:900px){.case-grid{grid-template-columns:1fr}}
+
+.combo{margin-top:clamp(80px,11vw,150px)}
+.combo-scroll{margin-top:clamp(28px,4vw,48px);overflow-x:auto;border-radius:28px;border:2px solid var(--ink)}
+.combo-t{width:100%;min-width:560px;border-collapse:collapse;font-size:16px}
+.combo-t th,.combo-t td{padding:16px clamp(14px,2vw,24px);text-align:center;border-top:1.5px solid rgba(18,18,18,.15)}
+.combo-t thead th{border-top:0;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:500}
+.combo-t tbody th{text-align:left;font-weight:600;letter-spacing:-.01em}
+.combo-t .mg{background:var(--ink);color:var(--paper)}
+.combo-t thead .mg{color:var(--orange)}
+.combo-t span{display:inline-block;font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;padding:6px 10px;border-radius:99px}
+.combo-t .y{background:var(--orange);color:var(--ink)}
+.combo-t .p{border:1.5px solid currentColor}
+.combo-t .n{color:var(--muted)}
+.combo-t .mg .y{background:var(--lime)}
+.combo-note{margin-top:20px;max-width:60ch;color:var(--muted)}
+
+.srcs{margin-top:clamp(56px,7vw,90px);padding-top:20px;border-top:2px solid var(--ink)}
+.srcs .mono{color:var(--muted);margin-bottom:10px}
+.srcs ol{list-style:decimal;padding-left:1.4em;display:grid;gap:6px;font-size:14px}
+.srcs a{text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px;transition:color 200ms ease}
+@media (hover:hover) and (pointer:fine){.srcs a:hover{color:var(--orange)}}
 
 /* ---------- 10. PARTIDA DE 60 S (sticky) ---------- */
 .match{height:420vh;position:relative}
 .match .pin{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;display:grid;align-items:center;background:#ffd9a8}
-.orb{position:absolute;left:50%;top:50%;width:min(120vw,1400px);aspect-ratio:1;translate:-50% -50%;will-change:transform}
-.orb i{position:absolute;left:50%;top:0;width:clamp(60px,9vw,120px);aspect-ratio:1;translate:-50% 0;border-radius:50%;background:var(--orange);box-shadow:0 0 0 12px rgba(255,255,255,.2)}
+/* relógio em tela cheia: ponteiro nasce no centro, marcas de 12/3/6/9 nas bordas */
+.dial{position:absolute;inset:0;pointer-events:none}
+.mk{position:absolute;background:currentColor;border-radius:6px;opacity:.5}
+.mk-12,.mk-6{left:50%;width:6px;height:40px;margin-left:-3px}
+.mk-3,.mk-9{top:50%;width:40px;height:6px;margin-top:-3px}
+.mk-12{top:18px}.mk-6{bottom:18px}.mk-3{right:18px}.mk-9{left:18px}
+.hand{position:absolute;left:50%;bottom:50%;width:6px;height:50%;margin-left:-3px;border-radius:6px 6px 0 0;background:var(--orange);transform-origin:50% 100%;will-change:transform}
+.hub{position:absolute;left:50%;top:50%;width:22px;height:22px;margin:-11px 0 0 -11px;border-radius:50%;background:var(--orange);box-shadow:0 0 0 6px rgba(255,255,255,.35)}
 .match-grid{display:grid;grid-template-columns:1fr 340px;gap:clamp(30px,6vw,100px);align-items:center;position:relative;z-index:2;padding-top:40px}
 .match-title{font-size:12px;font-weight:500;margin-bottom:18px}
 .clock{font-size:clamp(90px,17vw,280px);font-weight:800;letter-spacing:-.08em;line-height:.85;font-variant-numeric:tabular-nums}
@@ -359,12 +397,9 @@ section[id]{scroll-margin-top:64px}
 .sg-prize{background:var(--lime)}
 .sg-prize b{font-size:34px}
 .ph-foot{padding:12px 18px 18px;font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.08em;display:flex;justify-content:space-between;color:#5a554c}
-.you{position:absolute;left:50%;bottom:20px;transform:translateX(-50%);z-index:3;font-size:11px;padding:9px 16px;border-radius:99px;background:rgba(255,255,255,.6);color:var(--ink);backdrop-filter:blur(10px);display:flex;align-items:center;gap:8px;white-space:nowrap;transition:opacity 300ms ease}
-.you::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--orange);animation:pulse 1.6s infinite}
-@keyframes pulse{50%{transform:scale(1.6);opacity:.4}}
 
 @media (max-width:900px){
-  .orb{opacity:.45}
+  .hand,.hub{opacity:.5}
   .match-grid{grid-template-columns:1fr;gap:14px;align-content:center;padding-top:56px}
   .match-title{margin-bottom:6px;font-size:11px}
   .clock{font-size:clamp(56px,16vw,120px)}
@@ -376,24 +411,8 @@ section[id]{scroll-margin-top:64px}
   .ph-screen::before{width:70px;height:20px;margin-left:-35px;top:7px}
   .ph-head{padding:34px 14px 8px}
   .sg b{font-size:30px}.sg-rec b{font-size:64px}.sg-tut b{font-size:22px}.sg-prize b{font-size:26px}
-  .you{display:none}
+  .hand{height:50vw}   /* mobile: ponteiro vai do centro até a borda lateral */
 }
-
-/* ---------- 11. POR QUE FUNCIONA (2ª parte da seção .what, cards empilhados) ---------- */
-.why{margin-top:clamp(96px,13vw,180px)}
-.stack-list{margin-top:clamp(40px,7vw,90px)}
-.sc{position:sticky;top:calc(72px + var(--i)*18px);margin-bottom:34px;border-radius:36px;padding:clamp(26px,4vw,56px);min-height:min(62svh,500px);display:grid;grid-template-columns:1.1fr .9fr;gap:30px;align-items:end;transform-origin:50% 0;box-shadow:0 -20px 60px -30px rgba(0,0,0,.35);overflow:hidden}
-.sc .n{font-size:13px}
-.sc h4{font-size:clamp(34px,5.2vw,80px);font-weight:800;letter-spacing:-.06em;line-height:.92;margin-top:14px}
-.sc p{font-size:clamp(17px,1.8vw,22px);line-height:1.28;letter-spacing:-.02em;max-width:420px}
-.sc ul{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px}
-.sc li{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;padding:8px 12px;border:1.5px solid currentColor;border-radius:99px}
-.sc .glyph{position:absolute;right:clamp(20px,4vw,50px);top:clamp(14px,3vw,36px);font-size:clamp(110px,18vw,260px);font-weight:800;letter-spacing:-.1em;line-height:.8;opacity:.16;pointer-events:none;user-select:none}
-.sc.c1{background:var(--orange);color:var(--ink)}
-.sc.c2{background:var(--cobalt);color:var(--paper)}
-.sc.c3{background:var(--lime);color:var(--ink)}
-.sc.c4{background:var(--ink);color:var(--paper)}
-@media (max-width:760px){.sc{grid-template-columns:1fr;min-height:400px;top:calc(64px + var(--i)*12px);border-radius:28px}}
 
 /* ---------- 12. LINHA DO TEMPO ---------- */
 .time{padding:clamp(80px,11vw,160px) 0;border-top:2px solid var(--ink)}
@@ -548,6 +567,58 @@ section[id]{scroll-margin-top:64px}
 @media (hover:hover) and (pointer:fine){.faq-cta .btn:hover{background:#fff;border-color:#fff}.faq-cta .btn:hover .arr{background:var(--orange);color:var(--ink)}}
 @media (max-width:760px){.faq-cta .btn{width:100%}}
 
+/* ---------- 16c. GUIAS (o-que-e-advergame.html, como-fidelizar-clientes-bar.html) ----------
+   Texto longo para leitura: coluna de ~68ch, resposta direta em destaque logo
+   no topo, sumário com âncoras e tabela com rolagem própria no celular. */
+.guide-meta{margin-top:20px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 18px}
+.answer{margin-top:clamp(28px,4vw,44px);background:var(--lime);border-radius:26px;padding:clamp(20px,2.6vw,30px);max-width:880px}
+.answer .mono{display:block;margin-bottom:8px}
+.answer p{font-size:clamp(18px,1.9vw,22px);letter-spacing:-.02em;line-height:1.35;max-width:62ch}
+.toc{margin-top:clamp(28px,4vw,40px);max-width:880px;border-top:2px solid var(--ink);padding-top:16px}
+.toc .mono{color:var(--muted);margin-bottom:10px}
+.toc ol{list-style:decimal;padding-left:1.4em;display:grid;gap:4px}
+.toc a{text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px;display:inline-block;padding:4px 0}
+.prose{padding-bottom:clamp(56px,8vw,110px)}
+.prose .wrap>*{max-width:880px}
+.prose h2{font-size:clamp(30px,4.2vw,54px);font-weight:800;letter-spacing:-.05em;line-height:1;margin:clamp(48px,7vw,88px) 0 18px;scroll-margin-top:72px}
+.prose h3{font-size:clamp(21px,2.2vw,28px);letter-spacing:-.035em;line-height:1.1;margin:32px 0 10px}
+.prose p,.prose li{font-size:clamp(16px,1.5vw,19px);line-height:1.5;max-width:68ch}
+.prose p+p{margin-top:14px}
+.prose ul,.prose ol.list{margin:14px 0;padding-left:1.3em;display:grid;gap:8px}
+.prose ul{list-style:disc}
+.prose ol.list{list-style:decimal}
+.prose li::marker{color:var(--orange)}
+.prose a{text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px}
+@media (hover:hover) and (pointer:fine){.prose a:hover{color:var(--cobalt)}}
+.prose .src{margin-top:12px;font-size:14px;color:var(--muted)}
+.prose blockquote{margin:24px 0;padding:18px 22px;border-left:6px solid var(--orange);background:#fff;border-radius:0 20px 20px 0}
+.prose blockquote p{font-weight:500}
+.tbl{overflow-x:auto;margin:20px 0;border:2px solid var(--ink);border-radius:20px;background:#fff}
+.tbl table{width:100%;border-collapse:collapse;min-width:560px;font-size:15px}
+.tbl th,.tbl td{text-align:left;vertical-align:top;padding:12px 16px;border-bottom:1.5px solid rgba(18,18,18,.15)}
+.tbl thead th{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;background:var(--ink);color:var(--paper)}
+.tbl tbody tr:last-child>*{border-bottom:0}
+.related{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:20px}
+.related a{display:block;background:#fff;border-radius:22px;padding:20px 22px;text-decoration:none;transition:transform 160ms var(--ease-out)}
+.related a b{display:block;font-size:20px;letter-spacing:-.03em;line-height:1.1;margin-bottom:6px}
+.related a span{color:var(--muted);font-size:15px}
+.related a:active{transform:scale(.98)}
+/* "Conheça também" na home: 3 cartões no fim da página, antes do CTA */
+.also{padding:0 0 clamp(80px,11vw,160px)}
+.related--3{grid-template-columns:repeat(3,1fr);margin-top:clamp(32px,4.5vw,56px)}
+.related--3 a{display:flex;flex-direction:column;gap:10px;padding:clamp(22px,2.6vw,30px)}
+.related--3 a .mono{color:var(--muted);font-size:12px}
+.related--3 a b{font-size:clamp(22px,2.2vw,28px);margin-bottom:0}
+.related--3 a span:last-child{margin-top:auto}
+@media (hover:hover) and (pointer:fine){.related a:hover{transform:translateY(-3px)}.related a:hover b{color:var(--orange)}}
+@media (max-width:760px){.related{grid-template-columns:1fr}}
+.foot-links{display:flex;flex-wrap:wrap;gap:0 20px}
+/* links internos para os guias, dentro das seções da home e das respostas do FAQ */
+.more{margin-top:clamp(24px,3vw,36px);font-size:clamp(16px,1.5vw,19px);font-weight:500}
+.more a,.mech-lead a,.a p a{text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px}
+.mech-lead a{color:var(--lime)}
+@media (hover:hover) and (pointer:fine){.more a:hover,.a p a:hover{color:var(--cobalt)}}
+
 /* ---------- 17. MOVIMENTO REDUZIDO ---------- */
 /* Mantém só trocas de opacidade; tira deslocamentos, giros e loops */
 @media (prefers-reduced-motion:reduce){
@@ -556,7 +627,7 @@ section[id]{scroll-margin-top:64px}
   .split .w>i{transform:none;transition:none}
   .js .px{color:var(--lime);opacity:0;transition:opacity 400ms ease}
   .js .px.done{opacity:1}
-  .sticker>svg,.you::before,.tap::after,.it,.catcher{animation:none}
+  .sticker>svg,.tap::after,.it,.catcher{animation:none}
   .it{display:none}
   .gc,.sg{transform:none;transition:opacity 200ms ease}
   .marq{transform:none}

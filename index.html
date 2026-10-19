@@ -7,8 +7,8 @@
      SEO · se mudar para domínio próprio, troque https://arturmilk.github.io/montaggio-site
      (aparece aqui, no JSON-LD abaixo, em robots.txt e em sitemap.xml)
      ========================================================= -->
-<title>Advergames para bares e lanchonetes | Montaggio</title>
-<meta name="description" content="Advergames para bares, lanchonetes e comércios: jogos de 60 s no celular em que cada compra vale uma vida. Mais recompra e cliente voltando.">
+<title>Jogo de fidelidade para bares e lanchonetes | Montaggio</title>
+<meta name="description" content="Advergames para bares, lanchonetes e comércios: um jogo de 60 s no celular, sem app, em que cada compra vale uma vida. Mais recompra e cliente voltando.">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
 <link rel="canonical" href="https://arturmilk.github.io/montaggio-site/">
 <meta name="theme-color" content="#f3eee4">
@@ -31,6 +31,7 @@
 <meta name="twitter:title" content="Montaggio · Jogos que fazem o cliente voltar">
 <meta name="twitter:description" content="Advergames sob medida para bares, lanchonetes e comércios. Cada compra vale uma vida no jogo.">
 <meta name="twitter:image" content="https://arturmilk.github.io/montaggio-site/og-image.png">
+<meta name="twitter:image:alt" content="Montaggio: mais consumo no seu balcão. Skatista pixel art pegando garrafinhas num jogo de celular.">
 
 <!-- Ícones: o mesmo "m" do sticker da hero -->
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -45,6 +46,8 @@
       "@type": "Organization",
       "@id": "https://arturmilk.github.io/montaggio-site/#org",
       "name": "Montaggio",
+      "alternateName": "Montaggio Advergames",
+      "slogan": "Mais consumo no seu balcão.",
       "url": "https://arturmilk.github.io/montaggio-site/",
       "logo": "https://arturmilk.github.io/montaggio-site/apple-touch-icon.png",
       "image": "https://arturmilk.github.io/montaggio-site/og-image.png",
@@ -58,13 +61,14 @@
         "availableLanguage": "pt-BR",
         "url": "https://wa.me/556993630689"
       },
-      "knowsAbout": ["advergame", "gamificação", "fidelização de clientes", "jogos HTML5", "marketing para bares e restaurantes"]
+      "knowsAbout": ["advergame", "gamificação", "fidelização de clientes", "programa de fidelidade", "jogos HTML5", "QR code", "marketing para bares e restaurantes", "marketing para lanchonetes"]
     },
     {
       "@type": "WebSite",
       "@id": "https://arturmilk.github.io/montaggio-site/#site",
       "url": "https://arturmilk.github.io/montaggio-site/",
       "name": "Montaggio",
+      "description": "Advergames e jogos de fidelidade para bares, lanchonetes e comércios.",
       "inLanguage": "pt-BR",
       "publisher": { "@id": "https://arturmilk.github.io/montaggio-site/#org" }
     },
@@ -72,8 +76,10 @@
       "@type": "WebPage",
       "@id": "https://arturmilk.github.io/montaggio-site/#page",
       "url": "https://arturmilk.github.io/montaggio-site/",
-      "name": "Advergames para bares e lanchonetes | Montaggio",
+      "name": "Jogo de fidelidade para bares e lanchonetes | Montaggio",
+      "description": "Advergames para bares, lanchonetes e comércios: um jogo de 60 s no celular, sem app, em que cada compra vale uma vida.",
       "inLanguage": "pt-BR",
+      "dateModified": "2026-10-19",
       "isPartOf": { "@id": "https://arturmilk.github.io/montaggio-site/#site" },
       "about": { "@id": "https://arturmilk.github.io/montaggio-site/#service" },
       "primaryImageOfPage": "https://arturmilk.github.io/montaggio-site/og-image.png"
@@ -83,18 +89,24 @@
       "@id": "https://arturmilk.github.io/montaggio-site/#service",
       "name": "Advergames sob medida para bares, lanchonetes e comércios",
       "serviceType": "Desenvolvimento de advergames",
+      "alternateName": ["jogo de fidelidade para bares", "gamificação para restaurantes", "jogo promocional com QR code"],
+      "category": "Marketing e fidelização de clientes",
       "provider": { "@id": "https://arturmilk.github.io/montaggio-site/#org" },
       "areaServed": { "@type": "Country", "name": "Brasil" },
       "audience": { "@type": "BusinessAudience", "audienceType": "Bares, lanchonetes, restaurantes e comércios locais" },
-      "description": "Jogo de 60 segundos no navegador do celular, sem instalar app. Cada produto comprado libera uma vida; pontos viram prêmios no balcão. Inclui briefing, conceito, protótipo jogável, arte, publicação por QR code e medição."
+      "description": "Jogo de 60 segundos no navegador do celular, sem instalar app. Cada produto comprado libera uma vida; pontos viram prêmios no balcão. Inclui briefing, conceito, protótipo jogável, arte, publicação por QR code e medição.",
+      "url": "https://arturmilk.github.io/montaggio-site/#como-funciona",
+      "offers": { "@type": "Offer", "availability": "https://schema.org/InStock", "areaServed": { "@type": "Country", "name": "Brasil" }, "url": "https://wa.me/556993630689" }
     }
   ]
 }
 </script>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,700;12..96,800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<!-- Segurança: só carrega o que vem do próprio site (CSP) e não manda o endereço completo
+     da página para outros sites. Ao adicionar um script inline, ele vai precisar de hash na CSP. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-Du+OJKJSbdUgz5nrHeWWINvez6XKDDU/tyj/5c2uvwo='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; frame-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<link rel="preload" href="assets/fonts/bricolage-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="style.css">
 <!-- Marca a página como "com JS" antes de pintar, para os reveals não piscarem -->
 <script>document.documentElement.classList.add('js')</script>
@@ -112,6 +124,7 @@
     <a href="#problema">O problema</a>
     <a href="#como-funciona">Como funciona</a>
     <a href="#processo">Processo</a>
+    <a href="o-que-e-advergame.html">Advergame</a>
     <a href="perguntas-frequentes.html">Dúvidas</a>
   </div>
   <a class="nav-cta mono" href="#contato">Contato</a>
@@ -220,7 +233,7 @@
     <div class="wrap">
       <p class="mono kicker rv">Como a gente resolve</p>
       <h2 class="h-xl split" id="mech-h">Uma compra = Uma <em class="px" id="pxVida">Vida</em></h2>
-      <p class="mech-lead rv">A Montaggio cria um jogo com a cara do seu negócio. Para jogar, o cliente precisa de vidas. Para ter vidas, ele compra. Os pontos do jogo viram prêmios no seu balcão.</p>
+      <p class="mech-lead rv">A Montaggio cria um <a href="o-que-e-advergame.html">advergame</a>: um jogo com a cara do seu negócio. Para jogar, o cliente precisa de vidas. Para ter vidas, ele compra. Os pontos do jogo viram prêmios no seu balcão.</p>
     </div>
   </div>
 
@@ -267,7 +280,12 @@
      ========================================================= -->
 <section class="match" id="partida" aria-labelledby="match-h">
   <div class="pin" id="matchPin">
-    <div class="orb" id="orb" aria-hidden="true"><i></i></div>
+    <!-- relógio de 60 s: ponteiro nasce no centro da tela; marcas de 12, 3, 6 e 9 nas bordas -->
+    <div class="dial" id="dial" aria-hidden="true">
+      <b class="mk mk-12"></b><b class="mk mk-3"></b><b class="mk mk-6"></b><b class="mk mk-9"></b>
+      <div class="hand" id="hand"></div>
+      <i class="hub"></i>
+    </div>
     <div class="wrap match-grid">
       <div class="match-text">
         <h2 class="mono match-title" id="match-h">Uma partida de 60 segundos · exemplo ilustrativo</h2>
@@ -309,55 +327,86 @@
         </div>
       </div>
     </div>
-    <p class="you mono" aria-hidden="true">role para jogar</p>
   </div>
 </section>
 
 <!-- =========================================================
-     6. O QUE É UM ADVERGAME + POR QUE FUNCIONA (seção única)
-     Parte 1: definição e 3 tipos · Parte 2: cards empilhados
+     6. JÁ FUNCIONA (cases públicos) + O QUE A MONTAGGIO JUNTA
+     Fontes no fim da seção. Nenhum dos cases publica números: não inventar.
      ========================================================= -->
-<section class="what" id="advergame" aria-labelledby="what-h">
+<section class="cases" id="cases" aria-labelledby="cases-h">
   <div class="wrap">
-    <p class="mono kicker rv">O que é um advergame</p>
-    <h2 class="h-xl split" id="what-h">Um jogo feito com a marca, <em>para</em> a marca.</h2>
-    <p class="what-lead rv">Advergame vem de <i>advertising</i> + <i>game</i>. Em vez de assistir a um anúncio, a pessoa escolhe passar alguns minutos com a sua marca, porque está se divertindo.</p>
+    <p class="mono kicker rv">Cases públicos</p>
+    <div class="cases-head">
+      <h2 class="h-xl split" id="cases-h">Isso já existe <em>lá fora.</em></h2>
+      <!-- mesmo sticker da hero (reaproveita o #circ definido lá) -->
+      <div class="sticker rv" aria-hidden="true">
+        <svg viewBox="0 0 200 200"><text><textPath href="#circ">compra · joga · consome · compra · joga · consome ·</textPath></text></svg>
+        <div class="core"><svg class="core-m" viewBox="0 0 839 542"><path d="M0 542V207V14H128L129 177H149Q162 116 184.5 77Q207 38 240 19Q273 0 318 0Q364 0 395 20Q426 40 443.5 79Q461 118 466 177H481Q496 114 522 75.5Q548 37 584 18.5Q620 0 663 0Q707 0 740 17Q773 34 795.5 68Q818 102 828.5 153Q839 204 839 271V542H677V290Q677 239 669 205Q661 171 643.5 154.5Q626 138 599 138Q568 138 545.5 159Q523 180 510.5 218.5Q498 257 498 308V542H340V292Q340 240 331 206Q322 172 304.5 155Q287 138 260 138Q229 138 207 159Q185 180 173 218Q161 256 161 308V542Z"/></svg></div>
+      </div>
+    </div>
+    <p class="cases-lead rv">Marcas grandes já pagaram por jogo com prêmio e por compra que vira recompensa. Só que cada uma fez uma parte.</p>
 
-    <div class="types">
-      <article class="type rv" style="--d:0">
-        <span class="type-n mono">Tipo 01</span>
-        <h3>Associativo</h3>
-        <p>A marca aparece no cenário e fica ligada a uma sensação, mas não faz parte da jogabilidade.</p>
-        <p class="type-ex"><span class="mono">Exemplo</span> Um jogo de praia com a marca de uma sorveteria nas placas e no céu.</p>
+    <div class="case-grid">
+      <article class="case rv" style="--d:0">
+        <header>
+          <span class="mono case-tag">Vinícola · Califórnia · MarketJS</span>
+          <h3>Francis Ford Coppola Winery</h3>
+          <p class="case-sub">“Ultimate Baseball”, jogo de navegador</p>
+        </header>
+        <dl class="case-rows">
+          <div><dt class="mono">Jogo</dt><dd>Um jogo de beisebol pronto, com a marca na roupa do rebatedor, no fundo e nas arquibancadas: garrafas e taças no lugar da plateia.</dd></div>
+          <div><dt class="mono">Regra</dt><dd>10 rebatidas. Cada home run vale 1 ponto.</dd></div>
+          <div><dt class="mono">Prêmio</dt><dd>Três faixas de pontuação, cada uma com um código de cupom diferente.</dd></div>
+          <div><dt class="mono">Resgate</dt><dd>No caixa da loja ou como pontos no programa de fidelidade da marca.</dd></div>
+        </dl>
+        <p class="case-match"><b>Igual à Montaggio:</b> partida curta e prêmio pela pontuação.</p>
+        <p class="case-gap"><b>Faltou:</b> a compra não libera a jogada.</p>
       </article>
-      <article class="type type--hl rv" style="--d:1">
-        <span class="type-n mono">Tipo 02 · o mais comum no balcão</span>
-        <h3>Ilustrativo</h3>
-        <p>O produto é a própria mecânica do jogo. O jogador passa a partida inteira interagindo com ele.</p>
-        <p class="type-ex"><span class="mono">Exemplo</span> Pegar os pastéis que caem do balcão antes que cheguem ao chão.</p>
-      </article>
-      <article class="type rv" style="--d:2">
-        <span class="type-n mono">Tipo 03</span>
-        <h3>Demonstrativo</h3>
-        <p>O jogador experimenta o produto num ambiente virtual antes de comprar.</p>
-        <p class="type-ex"><span class="mono">Exemplo</span> Montar o próprio lanche no jogo e depois pedir igualzinho no balcão.</p>
+
+      <article class="case rv" style="--d:1">
+        <header>
+          <span class="mono case-tag">Pizza congelada · EUA · Brandmovers · out. 2022</span>
+          <h3>DiGiorno (Nestlé)</h3>
+          <p class="case-sub">“31 Days of DiGiorno”, Mês Nacional da Pizza</p>
+        </header>
+        <dl class="case-rows">
+          <div><dt class="mono">Cadastro</dt><dd>Um site da campanha, com conta de usuário e autorização de contato.</dd></div>
+          <div><dt class="mono">Compra</dt><dd>Num tabuleiro de tarefas, a pessoa enviava a foto da nota fiscal, respondia pesquisa e indicava amigos. Cada casa valia uma participação no sorteio.</dd></div>
+          <div><dt class="mono">Jogo</dt><dd>Uma roleta “Spin to Win” por semana, com brindes da marca.</dd></div>
+          <div><dt class="mono">Prêmio</dt><dd>Sorteio final de um cheque de US$ 5.000, mais bônus para quem completasse o tabuleiro.</dd></div>
+        </dl>
+        <p class="case-match"><b>Igual à Montaggio:</b> a compra comprovada vira recompensa.</p>
+        <p class="case-gap"><b>Faltou:</b> é sorte na roleta, não habilidade numa partida com ranking.</p>
       </article>
     </div>
 
-    <dl class="vs rv">
-      <div><dt>Não é <i>in-game advertising</i></dt><dd>Isso é colocar um anúncio dentro de um jogo que já existe e não é da marca.</dd></div>
-      <div><dt>Não é só gamificação</dt><dd>Gamificação usa pontos e níveis fora de um jogo, como um cartão de selos. O advergame é um jogo de verdade.</dd></div>
-    </dl>
-
-    <div class="why" id="por-que">
-      <p class="mono kicker rv">Por que funciona</p>
-      <h3 class="h-lg split" id="stack-h">Ninguém pula um anúncio que <em>escolheu</em> jogar.</h3>
-      <div class="stack-list">
-      <article class="sc c1" style="--i:0"><span class="glyph" aria-hidden="true">01</span><div><span class="n mono">01 · Atenção voluntária</span><h4>O cliente escolhe olhar.</h4></div><div><p>Um anúncio disputa segundos de atenção. Uma partida prende por um minuto ou mais, por vontade de quem joga.</p><ul><li>Escolha</li><li>Foco</li><li>Tempo de tela</li></ul></div></article>
-      <article class="sc c2" style="--i:1"><span class="glyph" aria-hidden="true">02</span><div><span class="n mono">02 · Repetição</span><h4>"Só mais uma partida."</h4></div><div><p>Partida curta e ranking dão vontade de tentar de novo. Cada tentativa é mais uma compra e mais um contato com a sua marca.</p><ul><li>Ranking</li><li>Recorde</li><li>Recompra</li></ul></div></article>
-      <article class="sc c3" style="--i:2"><span class="glyph" aria-hidden="true">03</span><div><span class="n mono">03 · Compartilhamento</span><h4>Recorde pede plateia.</h4></div><div><p>Quem bate o recorde mostra para os amigos e desafia a mesa ao lado. O jogo leva gente nova até o seu balcão.</p><ul><li>Desafios</li><li>WhatsApp</li><li>Boca a boca</li></ul></div></article>
-      <article class="sc c4" style="--i:3"><span class="glyph" aria-hidden="true">04</span><div><span class="n mono">04 · Memória da marca</span><h4>Seu produto vira o jogo.</h4></div><div><p>Quando o jogador passa a partida pegando os seus lanches, a marca fica ligada a diversão, e não a interrupção.</p><ul><li>Associação</li><li>Lembrança</li><li>Afeto</li></ul></div></article>
+    <div class="combo">
+      <h3 class="h-lg split" id="combo-h">A Montaggio junta <em>tudo</em> num jogo só.</h3>
+      <div class="combo-scroll rv" role="region" aria-labelledby="combo-h" tabindex="0">
+        <table class="combo-t">
+          <thead>
+            <tr><th scope="col"><span class="sr">Peça</span></th><th scope="col">Coppola</th><th scope="col">DiGiorno</th><th scope="col" class="mg">Montaggio</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">Jogo de habilidade, curto, no navegador</th><td><span class="y">Sim</span></td><td><span class="p">Roleta</span></td><td class="mg"><span class="y">Sim</span></td></tr>
+            <tr><th scope="row">Prêmio pela pontuação</th><td><span class="y">Sim</span></td><td><span class="n">Sorteio</span></td><td class="mg"><span class="y">Sim</span></td></tr>
+            <tr><th scope="row">Compra comprovada entra no jogo</th><td><span class="n">Não</span></td><td><span class="y">Sim</span></td><td class="mg"><span class="y">Sim</span></td></tr>
+            <tr><th scope="row">Cada compra libera uma nova partida</th><td><span class="n">Não</span></td><td><span class="n">Não</span></td><td class="mg"><span class="y">Sim</span></td></tr>
+            <tr><th scope="row">Ranking entre clientes da casa</th><td><span class="n">Não</span></td><td><span class="n">Não</span></td><td class="mg"><span class="y">Sim</span></td></tr>
+          </tbody>
+        </table>
       </div>
+      
+    </div>
+
+    <div class="srcs rv">
+      <p class="mono">Fontes</p>
+      <ol>
+        <li><a href="https://www.marketjs.com/case-study/coupon-codes-as-in-game-rewards/" target="_blank" rel="noopener">MarketJS · Coupon Codes As In-Game Rewards (Francis Ford Coppola Winery)</a></li>
+        <li><a href="https://www.brandmovers.com/31-days-of-digiorno-case-study" target="_blank" rel="noopener">Brandmovers · 31 Days of DiGiorno, case study</a></li>
+        <li><a href="https://www.prnewswire.com/news-releases/digiorno-celebrates-national-pizza-month-with-31-days-of-food--fun-301639456.html" target="_blank" rel="noopener">PR Newswire · DiGiorno celebrates National Pizza Month with 31 Days of Food &amp; Fun (Nestlé USA, 2022)</a></li>
+      </ol>
     </div>
   </div>
 </section>
@@ -383,6 +432,7 @@
     <blockquote class="lesson rv">
       <p>Os advergames lembrados até hoje eram, antes de tudo, bons jogos. <b>Um bom jogo vem antes do anúncio.</b> Jogo fraco com muita marca vira só um anúncio mais longo.</p>
     </blockquote>
+    <p class="more rv">Tipos, exemplos e o que dizem os estudos: <a href="o-que-e-advergame.html">guia completo sobre o que é advergame →</a></p>
   </div>
 </section>
 
@@ -437,6 +487,21 @@
 </section>
 
 <!-- =========================================================
+     10b. CONHEÇA TAMBÉM (links para os guias e o FAQ)
+     ========================================================= -->
+<section class="also" id="conheca" aria-labelledby="also-h">
+  <div class="wrap">
+    <p class="mono kicker rv">Para ler antes de decidir</p>
+    <h2 class="h-lg split" id="also-h">Conheça <em>também.</em></h2>
+    <div class="related related--3 rv">
+      <a href="como-fidelizar-clientes-bar.html"><span class="mono">Guia · antes de qualquer jogo</span><b>10 ideias para fazer o cliente voltar ao seu bar ou lanchonete</b><span>Do Google ao WhatsApp, com o que cada ideia custa e como medir. →</span></a>
+      <a href="o-que-e-advergame.html"><span class="mono">Guia</span><b>O que é advergame?</b><span>Definição, os 3 tipos, exemplos famosos e o que dizem os estudos. →</span></a>
+      <a href="perguntas-frequentes.html"><span class="mono">Dúvidas</span><b>Perguntas de quem tem balcão</b><span>Precisa de app? Pode dar prêmio? Pode ter cerveja? Respostas com fontes. →</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
      11. CTA FINAL + RODAPÉ
      ========================================================= -->
 <section class="cta" id="contato" aria-labelledby="cta-h">
@@ -459,7 +524,7 @@
   <div class="wrap foot-in mono">
     <span>© <span id="year">2026</span> Montaggio</span>
     <span>Santa Catarina, Brasil</span>
-    <a href="perguntas-frequentes.html">Perguntas frequentes</a>
+    <span class="foot-links"><a href="o-que-e-advergame.html">O que é advergame</a><a href="como-fidelizar-clientes-bar.html">Fidelizar clientes</a><a href="perguntas-frequentes.html">Perguntas frequentes</a><a href="privacidade.html">Privacidade</a></span>
     <a href="#topo">Voltar ao topo ↑</a>
   </div>
 </footer>

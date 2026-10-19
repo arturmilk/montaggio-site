@@ -9,6 +9,8 @@
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
 <link rel="canonical" href="https://arturmilk.github.io/montaggio-site/perguntas-frequentes.html">
 <meta name="theme-color" content="#f3eee4">
+<meta name="color-scheme" content="light">
+<meta name="author" content="Montaggio">
 
 <meta property="og:type" content="website">
 <meta property="og:locale" content="pt_BR">
@@ -19,7 +21,10 @@
 <meta property="og:image" content="https://arturmilk.github.io/montaggio-site/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Montaggio: mais consumo no seu balcão. Skatista pixel art pegando garrafinhas num jogo de celular.">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Advergames: as dúvidas de quem tem balcão">
+<meta name="twitter:description" content="Respostas diretas sobre jogos para bares e lanchonetes, com dados reais e fontes.">
 <meta name="twitter:image" content="https://arturmilk.github.io/montaggio-site/og-image.png">
 
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -41,7 +46,7 @@
       "isPartOf": { "@id": "https://arturmilk.github.io/montaggio-site/#site" },
       "about": { "@id": "https://arturmilk.github.io/montaggio-site/#service" },
       "publisher": { "@id": "https://arturmilk.github.io/montaggio-site/#org" },
-      "dateModified": "2026-10-16",
+      "dateModified": "2026-10-19",
       "breadcrumb": { "@id": "https://arturmilk.github.io/montaggio-site/perguntas-frequentes.html#trilha" }
     },
     {
@@ -56,9 +61,11 @@
 }
 </script>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,700;12..96,800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<!-- Segurança: só carrega o que vem do próprio site (CSP) e não manda o endereço completo
+     da página para outros sites. Ao adicionar um script inline, ele vai precisar de hash na CSP. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; frame-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<link rel="preload" href="assets/fonts/bricolage-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="style.css">
 </head>
 <body class="faq-page">
@@ -68,9 +75,9 @@
 <nav class="nav" aria-label="Principal"><div class="wrap">
   <a class="logo" href="index.html" aria-label="Montaggio, ir para a página inicial">montaggio®</a>
   <div class="links mono">
-    <a href="index.html#problema">O problema</a>
     <a href="index.html#como-funciona">Como funciona</a>
-    <a href="index.html#processo">Processo</a>
+    <a href="o-que-e-advergame.html">O que é advergame</a>
+    <a href="como-fidelizar-clientes-bar.html">Fidelizar clientes</a>
     <a href="perguntas-frequentes.html" aria-current="page">Dúvidas</a>
   </div>
   <a class="nav-cta mono" href="#contato">Contato</a>
@@ -99,7 +106,7 @@
       <summary><span class="q-n mono">01</span><h2>O que é um advergame, na prática?</h2><span class="q-ic" aria-hidden="true"></span></summary>
       <div class="a">
         <p>É um jogo feito com a marca, para a marca. No caso da Montaggio, um jogo curto que abre no celular do cliente, com os seus produtos, as suas cores e o seu nome. Para jogar, o cliente usa vidas; cada compra de um produto participante libera uma vida, e os pontos viram prêmios no seu balcão.</p>
-        <p>A diferença para um anúncio comum é que ninguém é interrompido: a pessoa escolhe jogar.</p>
+        <p>A diferença para um anúncio comum é que ninguém é interrompido: a pessoa escolhe jogar. Tipos, exemplos e história no <a href="o-que-e-advergame.html">guia sobre o que é advergame</a>.</p>
       </div>
     </details>
 
@@ -144,7 +151,7 @@
       <summary><span class="q-n mono">06</span><h2>Por que focar em fazer o cliente voltar?</h2><span class="q-ic" aria-hidden="true"></span></summary>
       <div class="a">
         <p class="stat"><b>+5% → +25%</b><span>mais 5% de clientes retidos renderam mais de 25% de lucro (serviços financeiros)</span></p>
-        <p>O estudo clássico de Fred Reichheld, da Bain &amp; Company, mostrou que cliente fiel custa menos para atender, compra mais com o tempo e indica outras pessoas. O número exato varia de setor para setor, mas a lógica vale para o balcão: quem já te conhece é o cliente mais barato de trazer de volta.</p>
+        <p>O estudo clássico de Fred Reichheld, da Bain &amp; Company, mostrou que cliente fiel custa menos para atender, compra mais com o tempo e indica outras pessoas. O número exato varia de setor para setor, mas a lógica vale para o balcão: quem já te conhece é o cliente mais barato de trazer de volta. Veja <a href="como-fidelizar-clientes-bar.html">10 ideias de fidelização para bares e lanchonetes</a>.</p>
         <p class="src">Fonte: <a href="https://media.bain.com/Images/MM_Loyalty_prescription_cutting_costs.pdf" target="_blank" rel="noopener">Reichheld &amp; Detrick, “Loyalty: A Prescription for Cutting Costs”, Marketing Management, 2003 (PDF, Bain &amp; Company)</a></p>
       </div>
     </details>
@@ -221,14 +228,11 @@
   <div class="wrap foot-in mono">
     <span>© 2026 Montaggio</span>
     <span>Santa Catarina, Brasil</span>
+    <span class="foot-links"><a href="o-que-e-advergame.html">O que é advergame</a><a href="como-fidelizar-clientes-bar.html">Fidelizar clientes</a><a href="perguntas-frequentes.html">Perguntas frequentes</a><a href="privacidade.html">Privacidade</a></span>
     <a href="index.html">Voltar ao início ↑</a>
   </div>
 </footer>
 
-<!-- link direto para uma pergunta (ex.: perguntas-frequentes.html#cerveja) já abre a resposta -->
-<script>
-  const openHash = () => { const q = document.getElementById(location.hash.slice(1)); if (q && q.tagName === 'DETAILS') q.open = true; };
-  openHash(); addEventListener('hashchange', openHash);
-</script>
+<script src="faq.js" defer></script>
 </body>
 </html>
