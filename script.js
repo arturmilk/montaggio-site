@@ -1,16 +1,6 @@
 /* =========================================================
    MONTAGGIO · script.js
-   Sem bibliotecas. O requestAnimationFrame só roda enquanto
-   o scroll está se acomodando; parado, ele dorme.
-   Índice:
-   1. Utilidades
-   2. Ano no rodapé
-   3. Texto por palavra (split)
-   4. Reveals ao entrar na tela
-   4b. "Vida" pixelada (8-bit)
-   4c. Mini-game (liga/desliga fora da tela)
-   5. Contadores
-   6. Marquee (palavras)
+   Sem 
    7. Loop de scroll (hero, marquee, partida, linha do tempo, CTA)
    ========================================================= */
 (() => {

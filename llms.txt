@@ -3,10 +3,10 @@
 > Estúdio brasileiro que cria advergames para bares, lanchonetes e comércios: jogos de cerca de 60 segundos que abrem no navegador do celular, sem instalar app. Cada compra de um produto participante libera uma vida no jogo, e os pontos viram prêmios no balcão. Atende todo o Brasil, a partir de Porto Velho (RO).
 
 ## Páginas
-- [Página inicial](https://arturmilk.github.io/montaggio-site/): o problema (cliente que não volta), a mecânica "uma compra = uma vida", cases públicos, processo e cuidados legais.
-- [O que é advergame](https://arturmilk.github.io/montaggio-site/o-que-e-advergame.html): definição, os 3 tipos, exemplos de 1983 até hoje, estudos e passo a passo.
-- [Como fidelizar clientes no bar e na lanchonete](https://arturmilk.github.io/montaggio-site/como-fidelizar-clientes-bar.html): 10 ideias de fidelização, comparação de custo e como medir.
-- [Perguntas frequentes](https://arturmilk.github.io/montaggio-site/perguntas-frequentes.html): app, QR code, prêmios (Lei 5.768/1971), bebida (CONAR), LGPD, custo e prazo.
+- [Página inicial](https://tuzihd.com.br/): o problema (cliente que não volta), a mecânica "uma compra = uma vida", cases públicos, processo e cuidados legais.
+- [O que é advergame](https://tuzihd.com.br/o-que-e-advergame.html): definição, os 3 tipos, exemplos de 1983 até hoje, estudos e passo a passo.
+- [Como fidelizar clientes no bar e na lanchonete](https://tuzihd.com.br/como-fidelizar-clientes-bar.html): 10 ideias de fidelização, comparação de custo e como medir.
+- [Perguntas frequentes](https://tuzihd.com.br/perguntas-frequentes.html): app, QR code, prêmios (Lei 5.768/1971), bebida (CONAR), LGPD, custo e prazo.
 
 ## Fatos
 - Serviço: desenvolvimento de advergames sob medida (briefing, conceito, protótipo jogável, arte e som, publicação por QR code, medição).

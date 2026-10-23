@@ -2,4 +2,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://arturmilk.github.io/montaggio-site/sitemap.xml
+Sitemap: https://tuzihd.com.br/sitemap.xml
