@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <!-- SEO · se mudar para domínio próprio, troque https://arturmilk.github.io/montaggio-site -->
 <title>Aviso de privacidade | Montaggio</title>
-<meta name="description" content="O site da Montaggio não usa cookies, analytics nem formulários. Veja quais dados passam pela hospedagem e pelo WhatsApp e como exercer seus direitos pela LGPD.">
+<meta name="description" content="Quem é o responsável pelo site da Montaggio, quais dados passam pela hospedagem (GitHub Pages e Cloudflare) e pelo WhatsApp e como exercer seus direitos pela LGPD.">
 <!-- página institucional: segue os links, mas não precisa aparecer na busca -->
 <meta name="robots" content="noindex, follow">
 <link rel="canonical" href="https://arturmilk.github.io/montaggio-site/privacidade.html">
@@ -25,7 +25,7 @@
 <a class="skip" href="#conteudo">Pular para o conteúdo</a>
 
 <nav class="nav" aria-label="Principal"><div class="wrap">
-  <a class="logo" href="index.html" aria-label="Montaggio, ir para a página inicial">montaggio®</a>
+  <a class="logo" href="index.html" aria-label="Montaggio, ir para a página inicial">montaggio</a>
   <div class="links mono">
     <a href="index.html#como-funciona">Como funciona</a>
     <a href="o-que-e-advergame.html">O que é advergame</a>
@@ -41,6 +41,8 @@
      AVISO DE PRIVACIDADE · deste site (não dos jogos)
      Descreve só o que o site faz hoje. Se entrar analytics, formulário,
      pixel ou cookie, atualize este texto ANTES de publicar a mudança.
+     O tráfego passa pela Cloudflare (proxy/CDN): se mudar algo no painel dela
+     (ex.: liberar o Web Analytics na CSP), atualize as seções "Hospedagem" e "Estatísticas".
      Os jogos de cada campanha têm aviso próprio, mostrado dentro do jogo.
      ========================================================= -->
 <header class="faq-head">
@@ -48,11 +50,11 @@
     <nav class="crumbs mono" aria-label="Você está em"><a href="index.html">Montaggio</a> <span aria-hidden="true">/</span> <span aria-current="page">Privacidade</span></nav>
     <h1 class="h-xl">Aviso de <em>privacidade.</em></h1>
     <p class="faq-lead">Como este site trata os seus dados, em linguagem direta.</p>
-    <p class="guide-meta mono"><span>Atualizado em <time datetime="2026-10-19">19 out. 2026</time></span></p>
+    <p class="guide-meta mono"><span>Atualizado em <time datetime="2026-10-23">23 out. 2026</time></span></p>
 
     <div class="answer">
       <span class="mono">Resumo</span>
-      <p><b>Este site não coleta dados pessoais.</b> Não usa cookies, ferramentas de análise (analytics), pixels de anúncio nem formulários. As fontes, imagens e scripts vêm do próprio site, sem serviços de terceiros carregados em segundo plano.</p>
+      <p><b>A Montaggio não coleta dados pessoais por este site.</b> Não usamos cookies, pixels de anúncio nem formulários, e não instalamos ferramentas de análise (analytics). Para entregar as páginas, o site passa por dois serviços de infraestrutura, o GitHub Pages e a Cloudflare, que recebem o seu endereço IP e dados técnicos do navegador.</p>
     </div>
   </div>
 </header>
@@ -60,8 +62,16 @@
 <article class="prose" aria-labelledby="hospedagem">
   <div class="wrap">
 
-    <h2 id="hospedagem">Hospedagem</h2>
-    <p>O site é hospedado no GitHub Pages, do GitHub, Inc. Como qualquer servidor, ele recebe o endereço IP e os dados técnicos do navegador para entregar as páginas e se proteger de ataques. A Montaggio não tem acesso a esses registros. O tratamento segue a <a href="https://docs.github.com/pt/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener">declaração de privacidade do GitHub</a>.</p>
+    <!-- CONTROLADOR · pessoa física. Se abrir CNPJ, troque nome/CPF por razão social/CNPJ aqui, em termos.html e no rodapé. -->
+    <h2 id="responsavel">Quem é o responsável</h2>
+    <p>O controlador dos dados tratados por este site é <b>Arthur Leite</b>, CPF <b>028.718.682-20</b>, com endereço no bairro Eletronorte, Porto Velho/RO, que usa o nome comercial Montaggio. Para qualquer assunto sobre os seus dados, fale com a gente pelo <a href="https://wa.me/556993630689?text=Oi%2C%20Montaggio!%20Tenho%20um%20pedido%20sobre%20os%20meus%20dados%20(LGPD)." target="_blank" rel="noopener">WhatsApp +55 (69) 9363-0689</a>.</p>
+
+    <h2 id="hospedagem">Hospedagem e entrega</h2>
+    <p>Os arquivos do site ficam no GitHub Pages, do GitHub, Inc. Antes de chegar até você, cada página passa pela Cloudflare, Inc., que funciona como rede de entrega de conteúdo (CDN) e proteção contra ataques. Por isso, a cada visita, a Cloudflare recebe o seu endereço IP, o endereço da página pedida e dados técnicos do navegador (como tipo, sistema e idioma). O GitHub recebe parte desses dados quando entrega os arquivos.</p>
+    <p>Esses serviços usam os dados para entregar o site, medir o desempenho da rede e bloquear ataques e acessos automatizados. Para isso, a Cloudflare pode gravar cookies de segurança estritamente necessários. Os servidores das duas empresas podem ficar fora do Brasil, o que é uma transferência internacional de dados (LGPD, art. 33). A base legal é o legítimo interesse em manter o site no ar e seguro (LGPD, art. 7º, IX). A Montaggio não recebe registros com o seu IP. O tratamento segue a <a href="https://www.cloudflare.com/pt-br/privacypolicy/" target="_blank" rel="noopener">política de privacidade da Cloudflare</a> e a <a href="https://docs.github.com/pt/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener">declaração de privacidade do GitHub</a>.</p>
+
+    <h2 id="estatisticas">Estatísticas de visita</h2>
+    <p>A Cloudflare pode inserir nas páginas o script do Cloudflare Web Analytics (carregado de <span class="mono">static.cloudflareinsights.com</span>), que conta visitas sem usar cookies. Hoje este site bloqueia esse script pela sua política de segurança de conteúdo (CSP): ele aparece no código da página, mas não é executado e não envia dados. Se um dia ele for liberado, este aviso será atualizado antes.</p>
 
     <h2 id="whatsapp">Contato pelo WhatsApp</h2>
     <p>Os botões “Chamar no WhatsApp” abrem uma conversa no WhatsApp, serviço da Meta. A mensagem só é enviada se você decidir enviá-la. A partir daí, a Montaggio recebe o seu nome de perfil, o seu número e o que você escrever, e usa esses dados apenas para responder e, se você quiser, preparar uma proposta. A base legal é o procedimento preliminar a contrato, a seu pedido (LGPD, art. 7º, V).</p>
@@ -74,7 +84,7 @@
     <p>Cada jogo criado para um cliente tem o seu próprio aviso de privacidade, mostrado dentro do jogo antes de qualquer coleta, como nome no ranking ou telefone. Veja como tratamos esses dados nas <a href="perguntas-frequentes.html#dados">perguntas frequentes</a>.</p>
 
     <h2 id="direitos">Seus direitos</h2>
-    <p>Pela Lei Geral de Proteção de Dados (<a href="https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm" target="_blank" rel="noopener">Lei 13.709/2018</a>, art. 18), você pode pedir para confirmar se tratamos dados seus, acessar, corrigir ou excluir esses dados e revogar o consentimento. Peça pelo <a href="https://wa.me/556993630689?text=Oi%2C%20Montaggio!%20Tenho%20um%20pedido%20sobre%20os%20meus%20dados%20(LGPD)." target="_blank" rel="noopener">WhatsApp +55 (69) 9363-0689</a>. Se não ficar satisfeito, você também pode procurar a Autoridade Nacional de Proteção de Dados (ANPD).</p>
+    <p>Pela Lei Geral de Proteção de Dados (<a href="https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm" target="_blank" rel="noopener">Lei 13.709/2018</a>, art. 18), você pode pedir ao controlador indicado acima para confirmar se tratamos dados seus, acessar, corrigir ou excluir esses dados e revogar o consentimento. Peça pelo <a href="https://wa.me/556993630689?text=Oi%2C%20Montaggio!%20Tenho%20um%20pedido%20sobre%20os%20meus%20dados%20(LGPD)." target="_blank" rel="noopener">WhatsApp +55 (69) 9363-0689</a>. Se não ficar satisfeito, você também pode procurar a Autoridade Nacional de Proteção de Dados (ANPD).</p>
 
   </div>
 </article>
@@ -84,8 +94,9 @@
 <footer class="foot">
   <div class="wrap foot-in mono">
     <span>© 2026 Montaggio</span>
-    <span>Santa Catarina, Brasil</span>
-    <span class="foot-links"><a href="o-que-e-advergame.html">O que é advergame</a><a href="como-fidelizar-clientes-bar.html">Fidelizar clientes</a><a href="perguntas-frequentes.html">Perguntas frequentes</a><a href="privacidade.html">Privacidade</a></span>
+    <span>Porto Velho/RO, Brasil</span>
+    <span>Responsável: Arthur Leite</span>
+    <span class="foot-links"><a href="o-que-e-advergame.html">O que é advergame</a><a href="como-fidelizar-clientes-bar.html">Fidelizar clientes</a><a href="perguntas-frequentes.html">Perguntas frequentes</a><a href="privacidade.html">Privacidade</a><a href="termos.html">Termos de uso</a></span>
     <a href="index.html">Voltar ao início ↑</a>
   </div>
 </footer>

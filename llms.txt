@@ -1,6 +1,6 @@
 # Montaggio
 
-> Estúdio brasileiro que cria advergames para bares, lanchonetes e comércios: jogos de cerca de 60 segundos que abrem no navegador do celular, sem instalar app. Cada compra de um produto participante libera uma vida no jogo, e os pontos viram prêmios no balcão. Atende todo o Brasil, a partir de Santa Catarina.
+> Estúdio brasileiro que cria advergames para bares, lanchonetes e comércios: jogos de cerca de 60 segundos que abrem no navegador do celular, sem instalar app. Cada compra de um produto participante libera uma vida no jogo, e os pontos viram prêmios no balcão. Atende todo o Brasil, a partir de Porto Velho (RO).
 
 ## Páginas
 - [Página inicial](https://arturmilk.github.io/montaggio-site/): o problema (cliente que não volta), a mecânica "uma compra = uma vida", cases públicos, processo e cuidados legais.
