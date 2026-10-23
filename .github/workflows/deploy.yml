@@ -1,0 +1,59 @@
+name: Deploy tuzihd.com.br
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-tuzihd
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    name: Publicar na VPS (Oracle)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Preparar chave SSH restrita
+        run: |
+          mkdir -p ~/.ssh
+          printf '%s\n' "${{ secrets.VPS_SSH_KEY }}" > ~/.ssh/deploy
+          chmod 600 ~/.ssh/deploy
+          printf '%s\n' "${{ secrets.VPS_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
+          chmod 644 ~/.ssh/known_hosts
+
+      - name: Executar deploy (forced command no servidor)
+        run: |
+          ssh -i ~/.ssh/deploy \
+              -o IdentitiesOnly=yes \
+              -o StrictHostKeyChecking=yes \
+              -o BatchMode=yes \
+              ubuntu@163.176.245.71
+
+      - name: Verificar o site publico
+        run: |
+          set -e
+          code=000
+          for i in 1 2 3 4 5; do
+            code=$(curl -s -o /dev/null -w '%{http_code}' --max-time 15 https://tuzihd.com.br/)
+            echo "tentativa $i: http $code"
+            [ "$code" = "200" ] && break
+            sleep 5
+          done
+          if [ "$code" != "200" ]; then
+            echo "::error::site nao respondeu 200 (ultimo: $code)"
+            exit 1
+          fi
+          echo "--- headers de seguranca ---"
+          curl -sI --max-time 15 https://tuzihd.com.br/ | grep -iE 'strict-transport-security|x-content-type-options|^server:'
+          echo "--- hash do index.html servido ---"
+          curl -s --max-time 15 https://tuzihd.com.br/ | sha256sum
+
+      - name: Remover chave do runner
+        if: always()
+        run: rm -f ~/.ssh/deploy
