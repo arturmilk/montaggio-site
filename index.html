@@ -112,7 +112,7 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-Du+OJKJSbdUgz5nrHeWWINvez6XKDDU/tyj/5c2uvwo='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; frame-src 'none'; upgrade-insecure-requests">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <link rel="preload" href="assets/fonts/bricolage-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css?v=20261124">
 <!-- Marca a página como "com JS" antes de pintar, para os reveals não piscarem -->
 <script>document.documentElement.classList.add('js')</script>
 </head>
@@ -128,6 +128,7 @@
   <div class="links mono">
     <a href="#problema">O problema</a>
     <a href="#como-funciona">Como funciona</a>
+    <a href="#jogos">Jogos</a>
     <a href="#processo">Processo</a>
     <a href="o-que-e-advergame.html">Advergame</a>
     <a href="perguntas-frequentes.html">Dúvidas</a>
@@ -336,6 +337,49 @@
 </section>
 
 <!-- =========================================================
+     5b. EXPERIMENTE NOSSOS JOGOS (links para o cardápio)
+     Prints em assets/jogos/ (cópias de portfolio-montaggio/prints/*-1.webp).
+     Os jogos e o cardápio ficam em cardapio.tuzihd.com.br.
+     ========================================================= -->
+<section class="play" id="jogos" aria-labelledby="play-h">
+  <div class="wrap">
+    <p class="mono kicker rv">Experimente agora</p>
+    <div class="play-head">
+      <h2 class="h-xl split" id="play-h">Experimente nossos <em>jogos.</em></h2>
+      <p class="play-lead rv">Versões de demonstração, sem marca. Abrem no navegador do celular, do jeito que o seu cliente vai jogar. Escolha um e jogue agora.</p>
+    </div>
+
+    <ul class="play-grid">
+      <li class="rv" style="--d:0"><a class="pg" href="https://cardapio.tuzihd.com.br/jogos/happy-hour/" target="_blank" rel="noopener">
+        <span class="pg-shot pt"><img src="assets/jogos/happy-hour.webp" alt="Happy Hour: tela de abertura com petiscos e canecas" width="480" height="1039" loading="lazy" decoding="async"></span>
+        <span class="pg-body"><span class="mono">Pegar o que cai · Bares</span><b>Happy Hour</b><span class="pg-go">Jogar <i aria-hidden="true">→</i></span></span>
+      </a></li>
+      <li class="rv" style="--d:1"><a class="pg" href="https://cardapio.tuzihd.com.br/jogos/a-entrega/" target="_blank" rel="noopener">
+        <span class="pg-shot pt"><img src="assets/jogos/a-entrega.webp" alt="A Entrega: personagem no galpão, com barris rolando pelas vigas" width="480" height="1039" loading="lazy" decoding="async"></span>
+        <span class="pg-body"><span class="mono">Plataforma · Varejo</span><b>A Entrega</b><span class="pg-go">Jogar <i aria-hidden="true">→</i></span></span>
+      </a></li>
+      <li class="rv" style="--d:2"><a class="pg" href="https://cardapio.tuzihd.com.br/jogos/drink-as-cegas/" target="_blank" rel="noopener">
+        <span class="pg-shot pt"><img src="assets/jogos/drink-as-cegas.webp" alt="Drink às Cegas: tela do misturador, com a taça e os ícones misteriosos" width="480" height="1039" loading="lazy" decoding="async"></span>
+        <span class="pg-body"><span class="mono">Em dupla · 2 celulares</span><b>Drink às Cegas</b><span class="pg-go">Jogar <i aria-hidden="true">→</i></span></span>
+      </a></li>
+      <li class="rv" style="--d:3"><a class="pg" href="https://cardapio.tuzihd.com.br/jogos/fuga-do-poser/" target="_blank" rel="noopener">
+        <span class="pg-shot ls"><img src="assets/jogos/fuga-do-poser.webp" alt="Fuga do Poser: herói pulando sobre amplificadores enquanto é perseguido" width="1000" height="462" loading="lazy" decoding="async"></span>
+        <span class="pg-body"><span class="mono">Corrida infinita · Shows</span><b>Fuga do Poser</b><span class="pg-go">Jogar <i aria-hidden="true">→</i></span></span>
+      </a></li>
+      <li class="rv" style="--d:4"><a class="pg" href="https://cardapio.tuzihd.com.br/jogos/busao-do-rock/" target="_blank" rel="noopener">
+        <span class="pg-shot ls"><img src="assets/jogos/busao-do-rock.webp" alt="Busão do Rock: ônibus acelerando na avenida, ao lado de uma loja de discos" width="1000" height="462" loading="lazy" decoding="async"></span>
+        <span class="pg-body"><span class="mono">Direção 3D · Lojas e eventos</span><b>Busão do Rock</b><span class="pg-go">Jogar <i aria-hidden="true">→</i></span></span>
+      </a></li>
+    </ul>
+
+    <div class="play-cta rv">
+      <p>Duração, idade e nível de dificuldade de cada jogo estão no cardápio. <b>Qualquer um deles vira o seu jogo.</b></p>
+      <a class="btn" href="https://cardapio.tuzihd.com.br/" target="_blank" rel="noopener">Ver o cardápio de jogos <span class="arr" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
      6. JÁ FUNCIONA (cases públicos) + O QUE A MONTAGGIO JUNTA
      Fontes no fim da seção. Nenhum dos cases publica números: não inventar.
      ========================================================= -->
@@ -531,7 +575,7 @@
     <span>© <span id="year">2026</span> Montaggio Games</span>
     <span>Porto Velho/RO, Brasil</span>
     <span>Responsável: Arthur Leite</span>
-    <span class="foot-links"><a href="o-que-e-advergame.html">O que é advergame</a><a href="como-fidelizar-clientes-bar.html">Fidelizar clientes</a><a href="perguntas-frequentes.html">Perguntas frequentes</a><a href="sobre.html">Sobre a Montaggio Games</a><a href="https://www.instagram.com/montaggio_/" target="_blank" rel="noopener me">Instagram</a><a href="privacidade.html">Privacidade</a><a href="termos.html">Termos de uso</a></span>
+    <span class="foot-links"><a href="https://cardapio.tuzihd.com.br/" target="_blank" rel="noopener">Cardápio de jogos</a><a href="o-que-e-advergame.html">O que é advergame</a><a href="como-fidelizar-clientes-bar.html">Fidelizar clientes</a><a href="perguntas-frequentes.html">Perguntas frequentes</a><a href="sobre.html">Sobre a Montaggio Games</a><a href="https://www.instagram.com/montaggio_/" target="_blank" rel="noopener me">Instagram</a><a href="privacidade.html">Privacidade</a><a href="termos.html">Termos de uso</a></span>
     <a href="#topo">Voltar ao topo ↑</a>
   </div>
 </footer>
