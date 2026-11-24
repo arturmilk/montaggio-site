@@ -265,17 +265,51 @@
   addEventListener('resize', kick);
   kick();
 
-  /* ---------- CARROSSEL "Experimente nossos jogos" ----------
+  /* ---------- CARROSSEL "Experimente nossos jogos" (infinito) ----------
      Rolagem nativa com snap (arrastar no celular funciona sozinho).
-     As setas andam um jogo por vez; no fim, voltam ao começo (e vice-versa). */
+     A lista é clonada antes e depois: o usuário rola sempre no bloco do meio e,
+     quando a rolagem para num bloco clonado, a posição pula para o card igual
+     do bloco do meio, sem animação (é a mesma imagem, então o salto não aparece). */
   const pcTrack = document.getElementById('pcTrack');
   if (pcTrack) {
     const pc = pcTrack.parentElement;
-    const step = () => { const li = pcTrack.children; return li.length > 1 ? li[1].offsetLeft - li[0].offsetLeft : pcTrack.clientWidth; };
+    const orig = [...pcTrack.children], n = orig.length;
+    const clone = li => {
+      const c = li.cloneNode(true);
+      c.setAttribute('aria-hidden', 'true'); c.dataset.clone = '';
+      c.querySelectorAll('a').forEach(a => a.tabIndex = -1);
+      return c;
+    };
+    orig.forEach(li => pcTrack.appendChild(clone(li)));
+    orig.slice().reverse().forEach(li => pcTrack.prepend(clone(li)));
+
+    const items = pcTrack.children;
+    const setW = () => items[n].offsetLeft - items[0].offsetLeft;           // largura de um bloco
+    const step = () => items[1].offsetLeft - items[0].offsetLeft;           // um card + gap
+    const jump = x => {                                                     // reposiciona sem animação
+      pcTrack.style.scrollBehavior = 'auto'; pcTrack.style.scrollSnapType = 'none';
+      pcTrack.scrollLeft = x;
+      pcTrack.offsetLeft;                                                   // força o layout antes de religar
+      pcTrack.style.scrollBehavior = ''; pcTrack.style.scrollSnapType = '';
+    };
+    let cur = 0;                                                            // card do começo da vista (0 a n-1)
+    const normalize = () => {
+      const w = setW(), x = pcTrack.scrollLeft;
+      if (x < w - step() / 2) jump(x + w);
+      else if (x >= w * 2 - step() / 2) jump(x - w);
+      cur = ((Math.round(pcTrack.scrollLeft / step()) % n) + n) % n;
+    };
+    jump(setW());
+
+    let t;
+    const settle = () => { clearTimeout(t); t = setTimeout(normalize, 140); };
+    if ('onscrollend' in window) pcTrack.addEventListener('scrollend', normalize);
+    else pcTrack.addEventListener('scroll', settle, { passive: true });
+    addEventListener('resize', () => jump(setW() + cur * step()));
+
     const go = dir => {
-      const max = pcTrack.scrollWidth - pcTrack.clientWidth, x = pcTrack.scrollLeft;
-      const to = dir > 0 ? (x >= max - 4 ? 0 : Math.min(max, x + step())) : (x <= 4 ? max : Math.max(0, x - step()));
-      pcTrack.scrollTo({ left: to, behavior: reduce ? 'auto' : 'smooth' });
+      normalize();
+      pcTrack.scrollBy({ left: dir * step(), behavior: reduce ? 'auto' : 'smooth' });
     };
     pc.querySelector('.pc-arrow.prev').addEventListener('click', () => go(-1));
     pc.querySelector('.pc-arrow.next').addEventListener('click', () => go(1));

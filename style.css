@@ -57,6 +57,12 @@
    Pílulas (99px) e círculos (50%) ficam redondos. Sem suporte: canto redondo normal. */
 :root{--sq:1;--cs:round}
 @supports (corner-shape:squircle){:root{--sq:1.6;--cs:squircle}}
+/* Ícones de traço com a mesma espessura das letras ao lado.
+   Haste do "l" da Bricolage Grotesque por peso, medida no arquivo da fonte (em = tamanho do texto).
+   Cada ícone usa o --stem-<peso> do texto que acompanha; o "em" se resolve no font-size do ícone,
+   então o font-size do contêiner do ícone = tamanho desse texto. non-scaling-stroke faz o traço
+   valer em pixels de tela, independente do viewBox. */
+:root{--stem-400:.091em;--stem-500:.108em;--stem-600:.124em;--stem-700:.141em;--stem-800:.158em}
 
 /* ---------- 1. BASE E ACESSIBILIDADE ---------- */
 *{box-sizing:border-box;margin:0;padding:0}
@@ -104,7 +110,8 @@ section[id]{scroll-margin-top:64px}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:56px;background:var(--ink);color:var(--paper);border:2px solid var(--ink);border-radius:99px;padding:14px 26px;font-weight:700;font-size:clamp(16px,1.4vw,18px);letter-spacing:-.02em;transition:transform 160ms var(--ease-out),background-color 200ms ease,color 200ms ease,border-color 200ms ease;user-select:none}
 .btn:active{transform:scale(.97)}
 .btn .arr{flex:none;display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--orange);color:var(--ink);transition:transform 250ms var(--ease-out),background-color 200ms ease,color 200ms ease}
-.btn .arr svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.btn .arr svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:var(--stem-700);stroke-linecap:round;stroke-linejoin:round}
+.btn .arr svg *{vector-effect:non-scaling-stroke}
 .btn.out{background:transparent;color:var(--ink)}
 @media (max-width:400px){.btn{font-size:15px;padding:12px 18px;gap:10px}}
 @media (hover:hover) and (pointer:fine){
@@ -187,8 +194,9 @@ section[id]{scroll-margin-top:64px}
 .flow{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:clamp(40px,6vw,72px);counter-reset:f}
 .flow-i{position:relative;background:#1e1e1e;border:1.5px solid #333;border-radius:calc(28px*var(--sq));corner-shape:var(--cs);padding:24px 22px 26px;display:flex;flex-direction:column;gap:8px}
 .flow-i:not(:last-child)::after{content:"→";position:absolute;right:-14px;top:34px;z-index:2;width:28px;height:28px;border-radius:50%;background:var(--peach);color:var(--ink);display:grid;place-items:center;font-weight:800;font-size:15px}
-.flow-ic{width:52px;height:52px;border-radius:calc(16px*var(--sq));corner-shape:var(--cs);background:var(--lime);color:var(--ink);display:grid;place-items:center;margin-bottom:10px}
-.flow-ic svg{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.flow-ic{font-size:clamp(24px,2.4vw,32px);width:52px;height:52px;border-radius:calc(16px*var(--sq));corner-shape:var(--cs);background:var(--lime);color:var(--ink);display:grid;place-items:center;margin-bottom:10px}
+.flow-ic svg{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:var(--stem-700);stroke-linecap:round;stroke-linejoin:round}
+.flow-ic svg *{vector-effect:non-scaling-stroke}
 .flow-i b{font-size:clamp(24px,2.4vw,32px);letter-spacing:-.04em;line-height:1}
 .flow-i span:last-child{color:#cfc8ba;font-size:16px}
 @media (max-width:900px){
@@ -334,7 +342,9 @@ section[id]{scroll-margin-top:64px}
   display:grid;place-items:center;border:1px solid rgba(18,18,18,.1);border-radius:50%;cursor:pointer;color:var(--ink);
   background:rgba(255,255,255,.72);-webkit-backdrop-filter:blur(16px) saturate(180%);backdrop-filter:blur(16px) saturate(180%);
   box-shadow:0 10px 30px -12px rgba(18,18,18,.45);transition:transform 160ms var(--ease-out),background-color 200ms ease,color 200ms ease}
-.pc-arrow svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.pc-arrow{font-size:clamp(20px,1.8vw,24px)}
+.pc-arrow svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:var(--stem-800);stroke-linecap:round;stroke-linejoin:round}
+.pc-arrow svg *{vector-effect:non-scaling-stroke}
 .pc-arrow.prev{left:calc(var(--m) - var(--s)/2 - var(--gap)/2)}
 .pc-arrow.next{right:calc(var(--m) - var(--s)/2 - var(--gap)/2)}
 .pc-arrow:active{transform:scale(.94)}
@@ -343,14 +353,14 @@ section[id]{scroll-margin-top:64px}
 .pg{display:flex;flex-direction:column;height:100%;background:#fff;border-radius:calc(22px*var(--sq));corner-shape:var(--cs);padding:8px;transition:transform 160ms var(--ease-out)}
 .pg:active{transform:scale(.98)}
 .pg-shot{display:grid;place-items:center;aspect-ratio:4/5;border-radius:calc(16px*var(--sq));corner-shape:var(--cs);background:radial-gradient(120% 90% at 50% 0%,#1d1c1a,var(--ink));overflow:hidden}
-.pg-shot img{border-radius:calc(10px*var(--sq));corner-shape:var(--cs);box-shadow:0 0 0 4px #000,0 0 0 5.5px #3a3833;object-fit:cover}
-.pg-shot.pt img{width:49.7%;height:auto;aspect-ratio:390/844}  /* = 86% da altura do palco 4:5 */
-.pg-shot.ls img{width:86%;height:auto;aspect-ratio:844/390}
+.pg-shot img{width:100%;height:100%;object-fit:cover}
 .pg-body{display:flex;flex-direction:column;gap:6px;padding:14px 10px 10px;flex:1}
 .pg-body .mono{color:var(--muted);font-size:11px}
 .pg-body b{font-size:clamp(20px,1.8vw,24px);letter-spacing:-.03em;line-height:1.05;transition:color 200ms ease}
 .pg-go{margin-top:auto;padding-top:8px;font-weight:700;display:inline-flex;align-items:center;gap:8px}
-.pg-go i{font-style:normal;display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--orange);color:var(--ink);font-size:14px;transition:transform 250ms var(--ease-out)}
+.pg-go i{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--orange);color:var(--ink);transition:transform 250ms var(--ease-out)}
+.pg-go svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:var(--stem-700);stroke-linecap:round;stroke-linejoin:round}
+.pg-go svg *{vector-effect:non-scaling-stroke}
 .play-cta{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px 32px;margin-top:clamp(20px,3vw,36px);padding-top:clamp(24px,3vw,32px);border-top:2px solid var(--ink)}
 .play-cta p{font-size:clamp(17px,1.6vw,20px);letter-spacing:-.02em;max-width:52ch;color:var(--muted)}
 .play-cta p b{color:var(--ink)}
