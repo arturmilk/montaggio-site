@@ -112,7 +112,7 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-Du+OJKJSbdUgz5nrHeWWINvez6XKDDU/tyj/5c2uvwo='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; frame-src 'none'; upgrade-insecure-requests">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <link rel="preload" href="assets/fonts/bricolage-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="style.css?v=20261124c">
+<link rel="stylesheet" href="style.css?v=20261124d">
 <!-- Marca a página como "com JS" antes de pintar, para os reveals não piscarem -->
 <script>document.documentElement.classList.add('js')</script>
 </head>
@@ -354,23 +354,23 @@
        O script.js ("CARROSSEL") clona a lista dos dois lados e reposiciona sem o usuário ver. -->
   <div class="pc rv" role="region" aria-roledescription="carrossel" aria-label="Jogos de demonstração">
     <ul class="pc-track" id="pcTrack">
-      <li><a class="pg" href="https://cardapio.tuzihd.com.br/jogos/busao-do-rock/" target="_blank" rel="noopener">
+      <li><a class="pg" data-game="busao-do-rock" aria-haspopup="dialog" href="https://cardapio.tuzihd.com.br/jogos/busao-do-rock/" target="_blank" rel="noopener">
         <span class="pg-shot"><img src="assets/jogos/busao-do-rock-thumb.webp?v=3" alt="Busão do Rock: o ônibus do rock chegando para o show das 19h" width="800" height="1000" loading="lazy" decoding="async"></span>
         <span class="pg-body"><span class="mono">Direção 3D · Lojas e eventos</span><b>Busão do Rock</b><span class="pg-go">Jogar <i aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></span></span>
       </a></li>
-      <li><a class="pg" href="https://cardapio.tuzihd.com.br/jogos/happy-hour/" target="_blank" rel="noopener">
+      <li><a class="pg" data-game="happy-hour" aria-haspopup="dialog" href="https://cardapio.tuzihd.com.br/jogos/happy-hour/" target="_blank" rel="noopener">
         <span class="pg-shot"><img src="assets/jogos/happy-hour-thumb.webp?v=3" alt="Happy Hour: personagem pegando petiscos que caem no bar" width="800" height="1000" loading="lazy" decoding="async"></span>
         <span class="pg-body"><span class="mono">Pegar o que cai · Bares</span><b>Happy Hour</b><span class="pg-go">Jogar <i aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></span></span>
       </a></li>
-      <li><a class="pg" href="https://cardapio.tuzihd.com.br/jogos/a-entrega/" target="_blank" rel="noopener">
+      <li><a class="pg" data-game="a-entrega" aria-haspopup="dialog" href="https://cardapio.tuzihd.com.br/jogos/a-entrega/" target="_blank" rel="noopener">
         <span class="pg-shot"><img src="assets/jogos/a-entrega-thumb.webp?v=3" alt="A Entrega: personagem pulando no galpão, entre caixas e barris" width="800" height="1000" loading="lazy" decoding="async"></span>
         <span class="pg-body"><span class="mono">Plataforma · Varejo</span><b>A Entrega</b><span class="pg-go">Jogar <i aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></span></span>
       </a></li>
-      <li><a class="pg" href="https://cardapio.tuzihd.com.br/jogos/drink-as-cegas/" target="_blank" rel="noopener">
+      <li><a class="pg" data-game="drink-as-cegas" aria-haspopup="dialog" href="https://cardapio.tuzihd.com.br/jogos/drink-as-cegas/" target="_blank" rel="noopener">
         <span class="pg-shot"><img src="assets/jogos/drink-as-cegas-thumb.webp?v=3" alt="Drink às Cegas: a taça do jogo cercada pelos ícones misteriosos" width="800" height="1000" loading="lazy" decoding="async"></span>
         <span class="pg-body"><span class="mono">Em dupla · 2 celulares</span><b>Drink às Cegas</b><span class="pg-go">Jogar <i aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></span></span>
       </a></li>
-      <li><a class="pg" href="https://cardapio.tuzihd.com.br/jogos/fuga-do-poser/" target="_blank" rel="noopener">
+      <li><a class="pg" data-game="fuga-do-poser" aria-haspopup="dialog" href="https://cardapio.tuzihd.com.br/jogos/fuga-do-poser/" target="_blank" rel="noopener">
         <span class="pg-shot"><img src="assets/jogos/fuga-do-poser-thumb.webp?v=3" alt="Fuga do Poser: herói fugindo do chato nos bastidores do festival" width="800" height="1000" loading="lazy" decoding="async"></span>
         <span class="pg-body"><span class="mono">Corrida infinita · Shows</span><b>Fuga do Poser</b><span class="pg-go">Jogar <i aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></span></span>
       </a></li>
@@ -578,6 +578,25 @@
 
 </main>
 
+<!-- Pop-up do jogo (carrossel): capa, QR code para abrir no celular e "Jogar agora".
+     Preenchido pelo script.js ("POP-UP DO JOGO"); QR codes em assets/qr/ (gerados no projeto do cardápio). -->
+<dialog class="qm" id="qm" aria-labelledby="qmTitle">
+  <div class="qm-in">
+    <div class="qm-cover"><img id="qmCover" src="data:," alt="" width="800" height="1000"></div>
+    <div class="qm-body">
+      <p class="mono" id="qmGenre"></p>
+      <h2 id="qmTitle"></h2>
+      <div class="qm-scan">
+        <img id="qmQr" src="data:," alt="" width="132" height="132">
+        <p><b>Jogue no celular</b>Aponte a câmera para o código. O jogo abre no navegador, sem instalar nada.</p>
+      </div>
+      <p class="qm-note" id="qmNote" hidden>Precisa de dois celulares: os dois escaneiam o código e se conectam pelo código de 4 letras que o jogo mostra.</p>
+      <a class="btn qm-go" id="qmGo" href="#" target="_blank" rel="noopener">Jogar agora <span class="arr" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+    </div>
+  </div>
+  <button class="qm-x" id="qmX" type="button" aria-label="Fechar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+</dialog>
+
 <footer class="foot">
   <div class="wrap foot-in mono">
     <span>© <span id="year">2026</span> Montaggio Games</span>
@@ -588,6 +607,6 @@
   </div>
 </footer>
 
-<script src="script.js?v=20261124c" defer></script>
+<script src="script.js?v=20261124d" defer></script>
 </body>
 </html>

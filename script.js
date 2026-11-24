@@ -317,4 +317,45 @@
       if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') { e.preventDefault(); go(e.key === 'ArrowRight' ? 1 : -1); }
     });
   }
+
+  /* ---------- POP-UP DO JOGO ----------
+     Clicar num card do carrossel abre um <dialog> com a capa, o QR code (abre o jogo no celular)
+     e "Jogar agora". Ctrl/Cmd/Shift/botão do meio continuam abrindo o jogo direto em outra aba.
+     O <dialog> nativo já fecha no Esc, prende o foco e devolve o foco ao card. */
+  const qm = document.getElementById('qm');
+  if (qm && pcTrack && qm.showModal) {
+    const QR_V = 1;                                   // troque ao regerar os QR codes (cache do CDN)
+    let from = null;
+    const close = () => {
+      if (!qm.open || qm.classList.contains('closing')) return;
+      if (reduce) { qm.close(); return; }
+      qm.classList.add('closing');
+      setTimeout(() => qm.close(), 150);
+    };
+    pcTrack.addEventListener('click', e => {
+      const a = e.target.closest('a.pg[data-game]');
+      if (!a || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      e.preventDefault();
+      const id = a.dataset.game, img = a.querySelector('.pg-shot img');
+      from = a;
+      document.getElementById('qmTitle').textContent = a.querySelector('.pg-body b').textContent;
+      document.getElementById('qmGenre').textContent = a.querySelector('.pg-body .mono').textContent;
+      const cov = document.getElementById('qmCover'); cov.src = img.currentSrc || img.src; cov.alt = img.alt;
+      const qr = document.getElementById('qmQr'); qr.src = `assets/qr/${id}.svg?v=${QR_V}`; qr.alt = `QR code que abre ${a.querySelector('.pg-body b').textContent} no celular`;
+      document.getElementById('qmNote').hidden = id !== 'drink-as-cegas';
+      document.getElementById('qmGo').href = a.href;
+      qm.classList.remove('closing');
+      document.documentElement.classList.add('qm-lock');
+      qm.showModal();
+      document.getElementById('qmGo').focus();
+    });
+    qm.addEventListener('close', () => {
+      qm.classList.remove('closing');
+      document.documentElement.classList.remove('qm-lock');
+      if (from && from.isConnected) from.focus({ preventScroll: true });
+    });
+    document.getElementById('qmX').addEventListener('click', close);
+    qm.addEventListener('click', e => { if (e.target === qm) close(); });   // clique fora do cartão
+    document.getElementById('qmGo').addEventListener('click', () => setTimeout(close, 0));
+  }
 })();
