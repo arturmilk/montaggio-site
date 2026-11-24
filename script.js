@@ -264,4 +264,23 @@
   addEventListener('scroll', kick, { passive: true });
   addEventListener('resize', kick);
   kick();
+
+  /* ---------- CARROSSEL "Experimente nossos jogos" ----------
+     Rolagem nativa com snap (arrastar no celular funciona sozinho).
+     As setas andam um jogo por vez; no fim, voltam ao começo (e vice-versa). */
+  const pcTrack = document.getElementById('pcTrack');
+  if (pcTrack) {
+    const pc = pcTrack.parentElement;
+    const step = () => { const li = pcTrack.children; return li.length > 1 ? li[1].offsetLeft - li[0].offsetLeft : pcTrack.clientWidth; };
+    const go = dir => {
+      const max = pcTrack.scrollWidth - pcTrack.clientWidth, x = pcTrack.scrollLeft;
+      const to = dir > 0 ? (x >= max - 4 ? 0 : Math.min(max, x + step())) : (x <= 4 ? max : Math.max(0, x - step()));
+      pcTrack.scrollTo({ left: to, behavior: reduce ? 'auto' : 'smooth' });
+    };
+    pc.querySelector('.pc-arrow.prev').addEventListener('click', () => go(-1));
+    pc.querySelector('.pc-arrow.next').addEventListener('click', () => go(1));
+    pc.addEventListener('keydown', e => {
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') { e.preventDefault(); go(e.key === 'ArrowRight' ? 1 : -1); }
+    });
+  }
 })();

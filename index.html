@@ -112,7 +112,7 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-Du+OJKJSbdUgz5nrHeWWINvez6XKDDU/tyj/5c2uvwo='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; frame-src 'none'; upgrade-insecure-requests">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <link rel="preload" href="assets/fonts/bricolage-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="style.css?v=20261124">
+<link rel="stylesheet" href="style.css?v=20261124b">
 <!-- Marca a página como "com JS" antes de pintar, para os reveals não piscarem -->
 <script>document.documentElement.classList.add('js')</script>
 </head>
@@ -348,30 +348,38 @@
       <h2 class="h-xl split" id="play-h">Experimente nossos <em>jogos.</em></h2>
       <p class="play-lead rv">Versões de demonstração, sem marca. Abrem no navegador do celular, do jeito que o seu cliente vai jogar. Escolha um e jogue agora.</p>
     </div>
+  </div>
 
-    <ul class="play-grid">
-      <li class="rv" style="--d:0"><a class="pg" href="https://cardapio.tuzihd.com.br/jogos/happy-hour/" target="_blank" rel="noopener">
+  <!-- Carrossel: 3 jogos por vez (2 no tablet, 1 no celular). Bordas da tela com blur;
+       setas avançam um jogo e dão a volta no fim. Lógica no script.js ("CARROSSEL"). -->
+  <div class="pc rv" role="region" aria-roledescription="carrossel" aria-label="Jogos de demonstração">
+    <ul class="pc-track" id="pcTrack">
+      <li><a class="pg" href="https://cardapio.tuzihd.com.br/jogos/happy-hour/" target="_blank" rel="noopener">
         <span class="pg-shot pt"><img src="assets/jogos/happy-hour.webp" alt="Happy Hour: tela de abertura com petiscos e canecas" width="480" height="1039" loading="lazy" decoding="async"></span>
         <span class="pg-body"><span class="mono">Pegar o que cai · Bares</span><b>Happy Hour</b><span class="pg-go">Jogar <i aria-hidden="true">→</i></span></span>
       </a></li>
-      <li class="rv" style="--d:1"><a class="pg" href="https://cardapio.tuzihd.com.br/jogos/a-entrega/" target="_blank" rel="noopener">
+      <li><a class="pg" href="https://cardapio.tuzihd.com.br/jogos/a-entrega/" target="_blank" rel="noopener">
         <span class="pg-shot pt"><img src="assets/jogos/a-entrega.webp" alt="A Entrega: personagem no galpão, com barris rolando pelas vigas" width="480" height="1039" loading="lazy" decoding="async"></span>
         <span class="pg-body"><span class="mono">Plataforma · Varejo</span><b>A Entrega</b><span class="pg-go">Jogar <i aria-hidden="true">→</i></span></span>
       </a></li>
-      <li class="rv" style="--d:2"><a class="pg" href="https://cardapio.tuzihd.com.br/jogos/drink-as-cegas/" target="_blank" rel="noopener">
+      <li><a class="pg" href="https://cardapio.tuzihd.com.br/jogos/drink-as-cegas/" target="_blank" rel="noopener">
         <span class="pg-shot pt"><img src="assets/jogos/drink-as-cegas.webp" alt="Drink às Cegas: tela do misturador, com a taça e os ícones misteriosos" width="480" height="1039" loading="lazy" decoding="async"></span>
         <span class="pg-body"><span class="mono">Em dupla · 2 celulares</span><b>Drink às Cegas</b><span class="pg-go">Jogar <i aria-hidden="true">→</i></span></span>
       </a></li>
-      <li class="rv" style="--d:3"><a class="pg" href="https://cardapio.tuzihd.com.br/jogos/fuga-do-poser/" target="_blank" rel="noopener">
+      <li><a class="pg" href="https://cardapio.tuzihd.com.br/jogos/fuga-do-poser/" target="_blank" rel="noopener">
         <span class="pg-shot ls"><img src="assets/jogos/fuga-do-poser.webp" alt="Fuga do Poser: herói pulando sobre amplificadores enquanto é perseguido" width="1000" height="462" loading="lazy" decoding="async"></span>
         <span class="pg-body"><span class="mono">Corrida infinita · Shows</span><b>Fuga do Poser</b><span class="pg-go">Jogar <i aria-hidden="true">→</i></span></span>
       </a></li>
-      <li class="rv" style="--d:4"><a class="pg" href="https://cardapio.tuzihd.com.br/jogos/busao-do-rock/" target="_blank" rel="noopener">
+      <li><a class="pg" href="https://cardapio.tuzihd.com.br/jogos/busao-do-rock/" target="_blank" rel="noopener">
         <span class="pg-shot ls"><img src="assets/jogos/busao-do-rock.webp" alt="Busão do Rock: ônibus acelerando na avenida, ao lado de uma loja de discos" width="1000" height="462" loading="lazy" decoding="async"></span>
         <span class="pg-body"><span class="mono">Direção 3D · Lojas e eventos</span><b>Busão do Rock</b><span class="pg-go">Jogar <i aria-hidden="true">→</i></span></span>
       </a></li>
     </ul>
+    <button class="pc-arrow prev" type="button" aria-controls="pcTrack" aria-label="Jogo anterior"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <button class="pc-arrow next" type="button" aria-controls="pcTrack" aria-label="Próximo jogo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+  </div>
 
+  <div class="wrap">
     <div class="play-cta rv">
       <p>Duração, idade e nível de dificuldade de cada jogo estão no cardápio. <b>Qualquer um deles vira o seu jogo.</b></p>
       <a class="btn" href="https://cardapio.tuzihd.com.br/" target="_blank" rel="noopener">Ver o cardápio de jogos <span class="arr" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
@@ -580,6 +588,6 @@
   </div>
 </footer>
 
-<script src="script.js" defer></script>
+<script src="script.js?v=20261124b" defer></script>
 </body>
 </html>
